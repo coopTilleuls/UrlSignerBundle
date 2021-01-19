@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="url_signer.md5" class="CoopTilleuls\UrlSignerBundle\UrlSigner\Md5UrlSigner" public="true">
+            <argument>%url_signer.signature_key%</argument>
+            <argument>%url_signer.expires_parameter%</argument>
+            <argument>%url_signer.signature_parameter%</argument>
+        </service>
+    </services>
+</container>

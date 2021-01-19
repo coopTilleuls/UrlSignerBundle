@@ -1,0 +1,5 @@
+parameters:
+    level: max
+    excludes_analyse:
+        - %currentWorkingDirectory%/Tests
+        - %currentWorkingDirectory%/DependencyInjection/Configuration.php
