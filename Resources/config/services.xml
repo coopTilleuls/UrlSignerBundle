@@ -9,5 +9,13 @@
             <argument>%url_signer.expires_parameter%</argument>
             <argument>%url_signer.signature_parameter%</argument>
         </service>
+        <service id="CoopTilleuls\UrlSignerBundle\UrlSigner\Md5UrlSigner" alias="url_signer.md5" />
+
+        <service id="url_signer.sha256" class="CoopTilleuls\UrlSignerBundle\UrlSigner\Sha256UrlSigner" public="true">
+            <argument>%url_signer.signature_key%</argument>
+            <argument>%url_signer.expires_parameter%</argument>
+            <argument>%url_signer.signature_parameter%</argument>
+        </service>
+        <service id="CoopTilleuls\UrlSignerBundle\UrlSigner\Sha256UrlSigner" alias="url_signer.sha256" />
     </services>
 </container>

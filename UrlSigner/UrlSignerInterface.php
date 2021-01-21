@@ -11,10 +11,11 @@
 
 declare(strict_types=1);
 
-namespace CoopTilleuls\UrlSignerBundle;
+namespace CoopTilleuls\UrlSignerBundle\UrlSigner;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Spatie\UrlSigner\UrlSigner;
 
-final class UrlSignerBundle extends Bundle
+interface UrlSignerInterface extends UrlSigner
 {
+    public function getName(): string;
 }
