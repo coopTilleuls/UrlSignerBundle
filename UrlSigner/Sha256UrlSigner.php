@@ -18,7 +18,7 @@ use Spatie\UrlSigner\BaseUrlSigner;
 
 final class Sha256UrlSigner extends BaseUrlSigner implements UrlSignerInterface
 {
-    public function getName(): string
+    public static function getName(): string
     {
         return 'sha256';
     }

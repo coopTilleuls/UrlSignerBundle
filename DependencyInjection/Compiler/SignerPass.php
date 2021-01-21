@@ -16,6 +16,7 @@ namespace CoopTilleuls\UrlSignerBundle\DependencyInjection\Compiler;
 use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
 final class SignerPass implements CompilerPassInterface
 {
@@ -23,13 +24,20 @@ final class SignerPass implements CompilerPassInterface
     {
         $signers = $this->getSigners($container);
         $signerName = $container->getParameter('url_signer.signer');
+        $availableNames = [];
 
         foreach ($signers as $name => $signerId) {
             if ($name === $signerName) {
                 $container->setAlias('url_signer.signer', $signerId);
                 $container->setAlias(UrlSignerInterface::class, $signerId);
+
+                return;
             }
+
+            $availableNames[] = $name;
         }
+
+        throw new InvalidArgumentException(sprintf("No URL signer with the name \"%s\" found. Available names are:\n%s", $signerName, implode("\n", array_map(static function (string $availableName) { return sprintf('- "%s"', $availableName); }, $availableNames))));
     }
 
     /**
@@ -41,9 +49,10 @@ final class SignerPass implements CompilerPassInterface
 
         $signerServices = $container->findTaggedServiceIds('url_signer.signer');
         foreach ($signerServices as $signerServiceId => $signerServiceTags) {
-            $signerService = $container->get($signerServiceId);
+            /** @var class-string $signerServiceClass */
+            $signerServiceClass = $container->getDefinition($signerServiceId)->getClass();
 
-            $signers[$signerService->getName()] = $signerServiceId;
+            $signers[$signerServiceClass::getName()] = $signerServiceId;
         }
 
         return $signers;

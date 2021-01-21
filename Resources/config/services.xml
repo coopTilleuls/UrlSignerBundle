@@ -8,6 +8,7 @@
             <argument>%url_signer.signature_key%</argument>
             <argument>%url_signer.expires_parameter%</argument>
             <argument>%url_signer.signature_parameter%</argument>
+            <tag name="url_signer.signer" />
         </service>
         <service id="CoopTilleuls\UrlSignerBundle\UrlSigner\Md5UrlSigner" alias="url_signer.md5" />
 
@@ -15,6 +16,7 @@
             <argument>%url_signer.signature_key%</argument>
             <argument>%url_signer.expires_parameter%</argument>
             <argument>%url_signer.signature_parameter%</argument>
+            <tag name="url_signer.signer" />
         </service>
         <service id="CoopTilleuls\UrlSignerBundle\UrlSigner\Sha256UrlSigner" alias="url_signer.sha256" />
 

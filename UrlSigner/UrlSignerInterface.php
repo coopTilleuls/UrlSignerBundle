@@ -17,5 +17,5 @@ use Spatie\UrlSigner\UrlSigner;
 
 interface UrlSignerInterface extends UrlSigner
 {
-    public function getName(): string;
+    public static function getName(): string;
 }
