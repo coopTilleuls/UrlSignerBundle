@@ -17,5 +17,10 @@
             <argument>%url_signer.signature_parameter%</argument>
         </service>
         <service id="CoopTilleuls\UrlSignerBundle\UrlSigner\Sha256UrlSigner" alias="url_signer.sha256" />
+
+        <service id="url_signer.listener.validate_signed_route" class="CoopTilleuls\UrlSignerBundle\EventListener\ValidateSignedRouteListener" public="false">
+            <argument type="service" id="url_signer.signer" />
+            <tag name="kernel.event_subscriber" />
+        </service>
     </services>
 </container>

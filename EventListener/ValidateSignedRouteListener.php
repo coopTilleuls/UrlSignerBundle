@@ -17,24 +17,24 @@ use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Route;
 
 final class ValidateSignedRouteListener implements EventSubscriberInterface
 {
-    private array $signedRoutePaths;
     private UrlSignerInterface $urlSigner;
 
-    public function __construct(array $signedRoutePaths, UrlSignerInterface $urlSigner)
+    public function __construct(UrlSignerInterface $urlSigner)
     {
-        $this->signedRoutePaths = $signedRoutePaths;
         $this->urlSigner = $urlSigner;
     }
 
     public function validateSignedRoute(RequestEvent $event): void
     {
         $request = $event->getRequest();
-        $requestPath = $request->getBasePath();
-        if (!\in_array($requestPath, $this->signedRoutePaths, true)) {
+        /** @var ?Route $route */
+        $route = $request->attributes->get('_route');
+
+        if (!$route || !$route->getOption('signed')) {
             return;
         }
 

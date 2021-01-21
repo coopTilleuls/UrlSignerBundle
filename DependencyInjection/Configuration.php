@@ -20,7 +20,7 @@ final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('url_signer');
+        $treeBuilder = new TreeBuilder('coop_tilleuls_url_signer');
         $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
