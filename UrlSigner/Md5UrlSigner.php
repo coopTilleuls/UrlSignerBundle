@@ -13,12 +13,24 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\UrlSignerBundle\UrlSigner;
 
-use Spatie\UrlSigner\MD5UrlSigner as SpatieMd5UrlSigner;
+use Psr\Http\Message\UriInterface;
 
-final class Md5UrlSigner extends SpatieMd5UrlSigner implements UrlSignerInterface
+final class Md5UrlSigner extends AbstractUrlSigner
 {
     public static function getName(): string
     {
         return 'md5';
+    }
+
+    /**
+     * Generate a token to identify the secure action.
+     *
+     * @param UriInterface|string $url
+     */
+    protected function createSignature($url, string $expiration): string
+    {
+        $url = (string) $url;
+
+        return hash_hmac('md5', "{$url}::{$expiration}", $this->signatureKey);
     }
 }

@@ -14,9 +14,8 @@ declare(strict_types=1);
 namespace CoopTilleuls\UrlSignerBundle\UrlSigner;
 
 use Psr\Http\Message\UriInterface;
-use Spatie\UrlSigner\BaseUrlSigner;
 
-final class Sha256UrlSigner extends BaseUrlSigner implements UrlSignerInterface
+final class Sha256UrlSigner extends AbstractUrlSigner
 {
     public static function getName(): string
     {

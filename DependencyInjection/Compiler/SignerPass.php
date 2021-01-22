@@ -49,8 +49,16 @@ final class SignerPass implements CompilerPassInterface
 
         $signerServices = $container->findTaggedServiceIds('url_signer.signer');
         foreach ($signerServices as $signerServiceId => $signerServiceTags) {
+            $signerServiceDefinition = $container->getDefinition($signerServiceId);
+            $signerServiceDefinition->setBindings([
+                'string $signatureKey' => '%url_signer.signature_key%',
+                'int $defaultExpiration' => '%url_signer.default_expiration%',
+                'string $expiresParameter' => '%url_signer.expires_parameter%',
+                'string $signatureParameter' => '%url_signer.signature_parameter%',
+            ]);
+
             /** @var class-string $signerServiceClass */
-            $signerServiceClass = $container->getDefinition($signerServiceId)->getClass();
+            $signerServiceClass = $signerServiceDefinition->getClass();
 
             $signers[$signerServiceClass::getName()] = $signerServiceId;
         }

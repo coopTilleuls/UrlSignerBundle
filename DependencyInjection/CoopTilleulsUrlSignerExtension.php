@@ -30,6 +30,7 @@ final class CoopTilleulsUrlSignerExtension extends Extension
 
         $container->setParameter('url_signer.signer', $config['signer']);
         $container->setParameter('url_signer.signature_key', $config['signature_key']);
+        $container->setParameter('url_signer.default_expiration', $config['default_expiration']);
         $container->setParameter('url_signer.expires_parameter', $config['expires_parameter']);
         $container->setParameter('url_signer.signature_parameter', $config['signature_parameter']);
 
