@@ -1,0 +1,64 @@
+name: CI
+
+on:
+    schedule:
+        # Every sunday at 02:00
+        - cron: 0 2 * * 0
+    pull_request:
+    push:
+
+jobs:
+    ci:
+        name: CI PHP ${{ matrix.php }} (Symfony ${{ matrix.symfony }})
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php:
+                    - '7.4'
+                    - '8.0'
+                symfony:
+                    - '4.4.*'
+                    - '5.1.*'
+                include:
+                    - php: '7.4'
+                      symfony: '5.1.*'
+                      bootable: true
+            fail-fast: false
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+
+            - name: Get Composer Cache Directory
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Cache Dependencies
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+                  restore-keys: ${{ runner.os }}-composer-
+
+            - name: Configure Symfony
+              run: composer config extra.symfony.require "${{ matrix.symfony }}"
+
+            - name: Update Project Dependencies
+              run: composer update --no-progress --ansi --prefer-stable
+
+#            - name: Bundle is bootable
+#              if: matrix.bootable
+#              env:
+#                  SKELETON_VERSION: ${{matrix.symfony}}
+#              run: |
+#                  composer create-project "symfony/skeleton:${SKELETON_VERSION}" flex
+#                  cd flex
+#                  composer config extra.symfony.allow-contrib true
+#                  composer req --ignore-platform-reqs tilleuls/url-signer-bundle
+
+            - name: Check Code Style
+              run: vendor/bin/php-cs-fixer fix --diff --dry-run
