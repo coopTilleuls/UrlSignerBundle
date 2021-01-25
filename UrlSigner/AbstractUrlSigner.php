@@ -29,6 +29,8 @@ abstract class AbstractUrlSigner extends BaseUrlSigner implements UrlSignerInter
     /**
      * @param string             $url
      * @param \DateTime|int|null $expiration
+     *
+     * @psalm-suppress MoreSpecificImplementedParamType
      */
     public function sign($url, $expiration = null): string
     {

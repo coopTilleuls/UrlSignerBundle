@@ -21,6 +21,9 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 final class CoopTilleulsUrlSignerExtension extends Extension
 {
+    /**
+     * @phpstan-ignore-next-line
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();

@@ -9,7 +9,7 @@
     <projectFiles>
         <directory name="." />
         <ignoreFiles>
-            <directory name="Tests" />
+            <!--<directory name="Tests" />-->
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>

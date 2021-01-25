@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\UrlSignerBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -21,37 +23,53 @@ final class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('coop_tilleuls_url_signer');
+        /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->getRootNode();
 
-        $rootNode
-            ->children()
+        $childNode = $rootNode->children();
+
+        /** @var NodeBuilder $childNode */
+        $childNode = $childNode
                 ->scalarNode('signer')
                     ->defaultValue('sha256')
                     ->cannotBeEmpty()
                     ->info('signer to use to create the signature')
                 ->end()
-                ->scalarNode('signature_key')
-                    ->cannotBeEmpty()
-                    ->isRequired()
-                    ->info('key used to sign the URL')
-                ->end()
-                ->scalarNode('default_expiration')
-                    ->defaultValue(1)
-                    ->cannotBeEmpty()
-                    ->info('default expiration time in days')
-                ->end()
-                ->scalarNode('expires_parameter')
-                    ->defaultValue('expires')
-                    ->cannotBeEmpty()
-                    ->info('name of the expires parameter in the URL')
-                ->end()
-                ->scalarNode('signature_parameter')
-                    ->defaultValue('signature')
-                    ->cannotBeEmpty()
-                    ->info('name of the signature parameter in the URL')
-                ->end()
+        ;
+        /** @var NodeBuilder $childNode */
+        $childNode = $childNode
+            ->scalarNode('signature_key')
+                ->cannotBeEmpty()
+                ->isRequired()
+                ->info('key used to sign the URL')
             ->end()
         ;
+        /** @var NodeBuilder $childNode */
+        $childNode = $childNode
+            ->scalarNode('default_expiration')
+                ->defaultValue(1)
+                ->cannotBeEmpty()
+                ->info('default expiration time in days')
+            ->end()
+        ;
+        /** @var NodeBuilder $childNode */
+        $childNode = $childNode
+            ->scalarNode('expires_parameter')
+                ->defaultValue('expires')
+                ->cannotBeEmpty()
+                ->info('name of the expires parameter in the URL')
+            ->end()
+        ;
+        /** @var NodeBuilder $childNode */
+        $childNode = $childNode
+            ->scalarNode('signature_parameter')
+                ->defaultValue('signature')
+                ->cannotBeEmpty()
+                ->info('name of the signature parameter in the URL')
+            ->end()
+        ;
+
+        $childNode->end();
 
         return $treeBuilder;
     }

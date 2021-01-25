@@ -62,3 +62,9 @@ jobs:
 
             - name: Check Code Style
               run: vendor/bin/php-cs-fixer fix --diff --dry-run
+
+            - name: Analyze Code (Psalm)
+              run: vendor/bin/psalm --long-progress --output-format=github --shepherd --stats
+
+            - name: Analyze Code (PHPStan)
+              run: vendor/bin/phpstan analyze . --no-progress --error-format=github

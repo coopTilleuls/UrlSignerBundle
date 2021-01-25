@@ -23,6 +23,7 @@ final class SignerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         $signers = $this->getSigners($container);
+        /** @var string $signerName */
         $signerName = $container->getParameter('url_signer.signer');
         $availableNames = [];
 
@@ -47,6 +48,7 @@ final class SignerPass implements CompilerPassInterface
     {
         $signers = [];
 
+        /** @var array<string, string[]> $signerServices */
         $signerServices = $container->findTaggedServiceIds('url_signer.signer');
         foreach ($signerServices as $signerServiceId => $signerServiceTags) {
             $signerServiceDefinition = $container->getDefinition($signerServiceId);
@@ -57,7 +59,7 @@ final class SignerPass implements CompilerPassInterface
                 'string $signatureParameter' => '%url_signer.signature_parameter%',
             ]);
 
-            /** @var class-string $signerServiceClass */
+            /** @var class-string<UrlSignerInterface> $signerServiceClass */
             $signerServiceClass = $signerServiceDefinition->getClass();
 
             $signers[$signerServiceClass::getName()] = $signerServiceId;
