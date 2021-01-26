@@ -1,0 +1,100 @@
+<?php
+
+/*
+ * This file is part of CoopTilleulsUrlSignerBundle.
+ *
+ * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
+namespace Tests\EventListener;
+
+use CoopTilleuls\UrlSignerBundle\EventListener\ValidateSignedRouteListener;
+use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
+use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+
+/**
+ * @internal
+ * @covers \CoopTilleuls\UrlSignerBundle\EventListener\ValidateSignedRouteListener
+ */
+final class ValidateSignedRouteListenerTest extends TestCase
+{
+    use ProphecyTrait;
+
+    /** @var ObjectProphecy<UrlSignerInterface> */
+    private ObjectProphecy $signerProphecy;
+    private EventDispatcher $dispatcher;
+
+    protected function setUp(): void
+    {
+        $this->signerProphecy = $this->prophesize(UrlSignerInterface::class);
+        $subscriber = new ValidateSignedRouteListener($this->signerProphecy->reveal());
+        $this->dispatcher = new EventDispatcher();
+        $this->dispatcher->addSubscriber($subscriber);
+    }
+
+    public function testSubscribedEvents(): void
+    {
+        static::assertArrayHasKey(RequestEvent::class, ValidateSignedRouteListener::getSubscribedEvents());
+    }
+
+    public function testValidateSignedRoute(): void
+    {
+        $request = Request::create('http://test.org/valid-signature');
+        $request->attributes->set('_route_params', ['_signed' => true]);
+        $event = new RequestEvent($this->prophesize(HttpKernelInterface::class)->reveal(), $request, HttpKernelInterface::MASTER_REQUEST);
+        $this->signerProphecy->validate('/valid-signature')->willReturn(true);
+
+        $this->dispatcher->dispatch($event);
+
+        $this->signerProphecy->validate(Argument::any())->shouldHaveBeenCalledOnce();
+    }
+
+    public function testValidateSignedRouteMissingRouteParamsAttribute(): void
+    {
+        $request = Request::create('http://test.org/valid-signature');
+        $event = new RequestEvent($this->prophesize(HttpKernelInterface::class)->reveal(), $request, HttpKernelInterface::MASTER_REQUEST);
+
+        $this->dispatcher->dispatch($event);
+
+        $this->signerProphecy->validate(Argument::any())->shouldNotHaveBeenCalled();
+    }
+
+    public function testValidateSignedRouteFalseSignedRouteParam(): void
+    {
+        $request = Request::create('http://test.org/valid-signature');
+        $request->attributes->set('_route_params', ['_signed' => false]);
+        $event = new RequestEvent($this->prophesize(HttpKernelInterface::class)->reveal(), $request, HttpKernelInterface::MASTER_REQUEST);
+
+        $this->dispatcher->dispatch($event);
+
+        $this->signerProphecy->validate(Argument::any())->shouldNotHaveBeenCalled();
+    }
+
+    public function testValidateSignedRouteInvalidSignature(): void
+    {
+        $this->expectException(AccessDeniedHttpException::class);
+        $this->expectExceptionMessage('URL is either missing a valid signature or have a bad signature.');
+
+        $request = Request::create('http://test.org/invalid-signature');
+        $request->attributes->set('_route_params', ['_signed' => true]);
+        $event = new RequestEvent($this->prophesize(HttpKernelInterface::class)->reveal(), $request, HttpKernelInterface::MASTER_REQUEST);
+        $this->signerProphecy->validate('/invalid-signature')->willReturn(false);
+
+        $this->dispatcher->dispatch($event);
+
+        $this->signerProphecy->validate(Argument::any())->shouldHaveBeenCalledOnce();
+    }
+}

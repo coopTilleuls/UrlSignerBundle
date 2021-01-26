@@ -11,11 +11,11 @@
         <ignoreFiles>
             <file name="features/app/src/Kernel.php" />
             <directory name="features/app/var" />
-            <directory name="tests" />
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
     <plugins>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin" />
         <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin" />
     </plugins>
 </psalm>

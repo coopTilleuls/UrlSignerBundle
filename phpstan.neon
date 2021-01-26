@@ -2,6 +2,9 @@ parameters:
     level: max
     excludes_analyse:
         - %currentWorkingDirectory%/features/app/var
-        - %currentWorkingDirectory%/tests
         - %currentWorkingDirectory%/DependencyInjection/Configuration.php
         - %currentWorkingDirectory%/vendor
+includes:
+    - vendor/jangregor/phpstan-prophecy/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon

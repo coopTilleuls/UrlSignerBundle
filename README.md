@@ -1,6 +1,7 @@
 # UrlSignerBundle
 
 [![Actions Status](https://github.com/coopTilleuls/UrlSignerBundle/workflows/CI/badge.svg)](https://github.com/coopTilleuls/UrlSignerBundle/actions)
+[![Coverage Status](https://coveralls.io/repos/github/coopTilleuls/UrlSignerBundle/badge.svg?branch=main)](https://coveralls.io/github/coopTilleuls/UrlSignerBundle?branch=main)
 [![Type Coverage](https://shepherd.dev/github/coopTilleuls/UrlSignerBundle/coverage.svg)](https://shepherd.dev/github/coopTilleuls/UrlSignerBundle)
 
 Create and validate signed URLs with a limited lifetime in Symfony.
