@@ -122,7 +122,7 @@ class DocumentController extends AbstractController
         // Not passing the second argument will use the default expiration time (1 day by default).
         // return $this->urlSigner->sign($url);
 
-        // Will return a URL like this: /documents/42?expires=1611316656&signature=82f6958bd5c96fda58b7a55ade7f651fadb51e12171d58ed271e744bcc7c85c3
+        // Will return a URL (more precisely a path) like this: /documents/42?expires=1611316656&signature=82f6958bd5c96fda58b7a55ade7f651fadb51e12171d58ed271e744bcc7c85c3
         return $this->urlSigner->sign($url, $expiration);
     }
 }

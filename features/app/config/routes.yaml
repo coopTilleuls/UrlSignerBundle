@@ -1,0 +1,9 @@
+secured_document:
+    path: /documents/{id}
+    controller: CoopTilleuls\UrlSignerBundle\Tests\Controller\DocumentController
+    defaults:
+        _signed: true
+
+sign:
+    path: /sign
+    controller: CoopTilleuls\UrlSignerBundle\Tests\Controller\SignController

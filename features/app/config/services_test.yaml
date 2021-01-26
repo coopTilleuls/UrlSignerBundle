@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    logger:
+        class: Symfony\Component\HttpKernel\Log\Logger
+        arguments:
+            $minLevel: critical
+
+    Tests\Behat\UrlSignerContext:
+        public: true
+        arguments:
+            $client: '@test.client'

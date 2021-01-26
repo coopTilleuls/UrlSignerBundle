@@ -1,0 +1,10 @@
+default:
+    suites:
+        default:
+            contexts:
+                - Tests\Behat\UrlSignerContext
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension:
+            kernel:
+                class: CoopTilleuls\UrlSignerBundle\Tests\Kernel
