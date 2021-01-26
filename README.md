@@ -37,12 +37,19 @@ return [
 
 ## Configuration
 
-Add a signature key:
+Add a signature key (as environment variable):
 
 ```yml
 # config/packages/url_signer.yaml
 coop_tilleuls_url_signer:
-    signature_key: 'your_signature_key'
+    signature_key: '%env(string:SIGNATURE_KEY)%'
+```
+
+In dev mode, you can use an `.env` file:
+
+```env
+# .env (or .env.local)
+SIGNATURE_KEY=your_signature_key
 ```
 
 You can change the signer used to create the signature:

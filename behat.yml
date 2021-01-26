@@ -6,5 +6,6 @@ default:
 
     extensions:
         FriendsOfBehat\SymfonyExtension:
+            bootstrap: features/app/config/bootstrap.php
             kernel:
                 class: CoopTilleuls\UrlSignerBundle\Tests\Kernel
