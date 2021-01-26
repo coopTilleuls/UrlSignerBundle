@@ -93,7 +93,7 @@ use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
 class DocumentController
 {
     public function __construct(
-        public UrlSignerInterface $urlSigner,
+        private UrlSignerInterface $urlSigner,
     ) {}
 }
 ```
