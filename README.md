@@ -1,5 +1,6 @@
 # UrlSignerBundle
 
+[![Packagist Version](https://img.shields.io/packagist/v/tilleuls/url-signer-bundle.svg)](https://packagist.org/packages/tilleuls/url-signer-bundle)
 [![Actions Status](https://github.com/coopTilleuls/UrlSignerBundle/workflows/CI/badge.svg)](https://github.com/coopTilleuls/UrlSignerBundle/actions)
 [![Coverage Status](https://coveralls.io/repos/github/coopTilleuls/UrlSignerBundle/badge.svg?branch=main)](https://coveralls.io/github/coopTilleuls/UrlSignerBundle?branch=main)
 [![Type Coverage](https://shepherd.dev/github/coopTilleuls/UrlSignerBundle/coverage.svg)](https://shepherd.dev/github/coopTilleuls/UrlSignerBundle)
