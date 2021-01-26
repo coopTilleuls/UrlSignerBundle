@@ -55,15 +55,17 @@ jobs:
             - name: Update project dependencies
               run: composer update --no-progress --ansi --prefer-stable
 
-#            - name: Bundle is bootable
-#              if: matrix.bootable
-#              env:
-#                  SKELETON_VERSION: ${{matrix.symfony}}
-#              run: |
-#                  composer create-project "symfony/skeleton:${SKELETON_VERSION}" flex
-#                  cd flex
-#                  composer config extra.symfony.allow-contrib true
-#                  composer req --ignore-platform-reqs tilleuls/url-signer-bundle
+            - name: Bundle is bootable
+              if: matrix.bootable
+              env:
+                  SKELETON_VERSION: ${{ matrix.symfony }}
+              run: |
+                  composer create-project "symfony/skeleton:${SKELETON_VERSION}" flex
+                  cd flex
+                  composer config extra.symfony.allow-contrib true
+                  composer req tilleuls/url-signer-bundle league/uri-components:2.x-dev
+                  cd ..
+                  rm -rf flex
 
             - name: Check code style
               if: matrix.php != '8.0' # To remove when PHP 8.0.1 is used
