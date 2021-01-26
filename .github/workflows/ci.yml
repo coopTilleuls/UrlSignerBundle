@@ -19,10 +19,13 @@ jobs:
                 symfony:
                     - '4.4.*'
                     - '5.1.*'
+                coverage:
+                    - none
                 include:
                     - php: '7.4'
                       symfony: '5.1.*'
                       bootable: true
+                      coverage: pcov
             fail-fast: false
         steps:
             - name: Checkout
@@ -32,12 +35,14 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php }}
+                  ini-values: pcov.directory=.
+                  coverage: ${{ matrix.coverage }}
 
-            - name: Get Composer Cache Directory
+            - name: Get Composer cache directory
               id: composer-cache
               run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-            - name: Cache Dependencies
+            - name: Cache dependencies
               uses: actions/cache@v2
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
@@ -47,7 +52,7 @@ jobs:
             - name: Configure Symfony
               run: composer config extra.symfony.require "${{ matrix.symfony }}"
 
-            - name: Update Project Dependencies
+            - name: Update project dependencies
               run: composer update --no-progress --ansi --prefer-stable
 
 #            - name: Bundle is bootable
@@ -60,15 +65,32 @@ jobs:
 #                  composer config extra.symfony.allow-contrib true
 #                  composer req --ignore-platform-reqs tilleuls/url-signer-bundle
 
-            - name: Check Code Style
+            - name: Check code style
               if: matrix.php != '8.0' # To remove when PHP 8.0.1 is used
-              run: vendor/bin/php-cs-fixer fix --diff --dry-run
+              run: vendor/bin/php-cs-fixer fix --ansi --diff --dry-run
 
-            - name: Analyze Code (Psalm)
+            - name: Analyze code (Psalm)
               run: vendor/bin/psalm --long-progress --output-format=github --shepherd --stats
 
-            - name: Analyze Code (PHPStan)
-              run: vendor/bin/phpstan analyze . --no-progress --error-format=github
+            - name: Analyze code (PHPStan)
+              run: vendor/bin/phpstan analyze . --ansi --no-progress --error-format=github
 
-            - name: Run Functional Tests
-              run: vendor/bin/behat
+            - name: Run functional tests
+              run: vendor/bin/behat --colors
+
+            - name: Run unit tests
+              if: matrix.coverage == 'none'
+              run: vendor/bin/phpunit --colors=always --testdox
+
+            - name: Run unit tests with coverage
+              if: matrix.coverage != 'none'
+              run: vendor/bin/phpunit --coverage-clover ./clover.xml --colors=always --testdox
+
+            - name: Upload coverage results
+              if: matrix.coverage != 'none'
+              env:
+                  COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  composer global require --no-progress --no-suggest --ansi cedx/coveralls
+                  export PATH="$PATH:$HOME/.composer/vendor/bin"
+                  coveralls ./clover.xml

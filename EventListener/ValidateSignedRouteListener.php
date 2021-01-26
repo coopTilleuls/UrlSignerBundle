@@ -38,7 +38,7 @@ final class ValidateSignedRouteListener implements EventSubscriberInterface
         }
 
         if (!$this->urlSigner->validate($request->getRequestUri())) {
-            throw new AccessDeniedHttpException('URL is either missing a valid signature or have a bad signature');
+            throw new AccessDeniedHttpException('URL is either missing a valid signature or have a bad signature.');
         }
     }
 
