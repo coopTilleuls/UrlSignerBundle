@@ -24,7 +24,6 @@
     },
     "require": {
         "php": ">=7.4",
-        "league/uri-components": "dev-master",
         "spatie/url-signer": "^1.1",
         "symfony/config": "^4.4 || ^5.1",
         "symfony/dependency-injection": "^4.4 || ^5.1",
