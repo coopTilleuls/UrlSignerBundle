@@ -1,0 +1,20 @@
+{
+    "source": {
+        "directories": [
+            "DependencyInjection",
+            "EventListener",
+            "UrlSigner"
+        ],
+        "excludes": [
+            "Configuration.php"
+        ]
+    },
+    "mutators": {
+        "@default": true
+    },
+    "logs": {
+        "badge": {
+            "branch": "main"
+        }
+    }
+}

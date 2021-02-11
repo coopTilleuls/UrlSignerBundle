@@ -3,6 +3,7 @@
 [![Packagist Version](https://img.shields.io/packagist/v/tilleuls/url-signer-bundle.svg)](https://packagist.org/packages/tilleuls/url-signer-bundle)
 [![Actions Status](https://github.com/coopTilleuls/UrlSignerBundle/workflows/CI/badge.svg)](https://github.com/coopTilleuls/UrlSignerBundle/actions)
 [![Coverage Status](https://coveralls.io/repos/github/coopTilleuls/UrlSignerBundle/badge.svg?branch=main)](https://coveralls.io/github/coopTilleuls/UrlSignerBundle?branch=main)
+[![Infection MSI](https://badge.stryker-mutator.io/github.com/coopTilleuls/UrlSignerBundle/main)](https://infection.github.io)
 [![Type Coverage](https://shepherd.dev/github/coopTilleuls/UrlSignerBundle/coverage.svg)](https://shepherd.dev/github/coopTilleuls/UrlSignerBundle)
 
 Create and validate signed URLs with a limited lifetime in Symfony.

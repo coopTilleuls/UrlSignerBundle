@@ -29,8 +29,6 @@ final class Md5UrlSigner extends AbstractUrlSigner
      */
     protected function createSignature($url, string $expiration): string
     {
-        $url = (string) $url;
-
         return hash_hmac('md5', "{$url}::{$expiration}", $this->signatureKey);
     }
 }

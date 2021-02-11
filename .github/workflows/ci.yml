@@ -86,7 +86,7 @@ jobs:
 
             - name: Run unit tests with coverage
               if: matrix.coverage != 'none'
-              run: vendor/bin/phpunit --coverage-clover ./clover.xml --colors=always --testdox
+              run: vendor/bin/phpunit --coverage-clover=clover.xml --coverage-xml=coverage-xml --log-junit=junit.xml --colors=always --testdox
 
             - name: Upload coverage results
               if: matrix.coverage != 'none'
@@ -96,3 +96,9 @@ jobs:
                   composer global require --no-progress --no-suggest --ansi cedx/coveralls
                   export PATH="$PATH:$HOME/.composer/vendor/bin"
                   coveralls ./clover.xml
+
+            - name: Run mutation testing
+              if: matrix.coverage != 'none'
+              env:
+                  INFECTION_BADGE_API_KEY: ${{ secrets.INFECTION_BADGE_API_KEY }}
+              run: vendor/bin/infection --ansi --skip-initial-tests --coverage=. --logger-github

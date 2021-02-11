@@ -46,8 +46,8 @@ final class SignerPassTest extends TestCase
     public function testProcess(): void
     {
         $this->containerBuilderProphecy->findTaggedServiceIds('url_signer.signer')->willReturn([
-            'url_signer.signer.md5' => [],
             'url_signer.signer.sha256' => [],
+            'url_signer.signer.md5' => [],
         ]);
         $md5SignerServiceDefinitionProphecy = $this->prophesize(Definition::class);
         $sha256SignerServiceDefinitionProphecy = $this->prophesize(Definition::class);
