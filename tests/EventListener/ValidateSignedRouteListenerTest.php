@@ -72,6 +72,17 @@ final class ValidateSignedRouteListenerTest extends TestCase
         $this->signerProphecy->validate(Argument::any())->shouldNotHaveBeenCalled();
     }
 
+    public function testValidateSignedRouteMissingSignedRouteParam(): void
+    {
+        $request = Request::create('http://test.org/valid-signature');
+        $request->attributes->set('_route_params', ['_locale' => 'fr']);
+        $event = new RequestEvent($this->prophesize(HttpKernelInterface::class)->reveal(), $request, HttpKernelInterface::MASTER_REQUEST);
+
+        $this->dispatcher->dispatch($event);
+
+        $this->signerProphecy->validate(Argument::any())->shouldNotHaveBeenCalled();
+    }
+
     public function testValidateSignedRouteFalseSignedRouteParam(): void
     {
         $request = Request::create('http://test.org/valid-signature');

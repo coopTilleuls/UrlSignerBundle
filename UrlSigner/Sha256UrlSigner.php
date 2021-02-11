@@ -29,8 +29,6 @@ final class Sha256UrlSigner extends AbstractUrlSigner
      */
     protected function createSignature($url, string $expiration): string
     {
-        $url = (string) $url;
-
         return hash_hmac('sha256', "{$url}::{$expiration}", $this->signatureKey);
     }
 }
