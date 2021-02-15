@@ -108,7 +108,7 @@ Otherwise, inject the `url_signer.signer` service in the configuration:
 services:
     App\Controller\DocumentController:
         arguments:
-            $urlSigner: 'url_signer.signer'
+            $urlSigner: '@url_signer.signer'
 ```
 
 You can now use the URL signer to generate a signed URL:
