@@ -1,6 +1,6 @@
 | Q             | A
 | ------------- | ---
-| Bug fix?      | yes/no
+| Bug fix?      | yes/no <!-- please update CHANGELOG.md file -->
 | New feature?  | yes/no <!-- please update CHANGELOG.md file -->
 | Deprecations? | yes/no
 | Tickets       | Fix #... <!-- prefix each issue number with "Fix #", no need to create an issue if none exist, explain below instead -->
