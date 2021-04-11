@@ -50,7 +50,7 @@ final class SignerPass implements CompilerPassInterface
 
         /** @var array<string, string[]> $signerServices */
         $signerServices = $container->findTaggedServiceIds('url_signer.signer');
-        foreach ($signerServices as $signerServiceId => $signerServiceTags) {
+        foreach ($signerServices as $signerServiceId => $_signerServiceTags) {
             $signerServiceDefinition = $container->getDefinition($signerServiceId);
             $signerServiceDefinition->setBindings([
                 'string $signatureKey' => '%url_signer.signature_key%',

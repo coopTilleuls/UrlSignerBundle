@@ -18,12 +18,12 @@ jobs:
                     - '8.0'
                 symfony:
                     - '4.4.*'
-                    - '5.1.*'
+                    - '5.2.*'
                 coverage:
                     - none
                 include:
                     - php: '7.4'
-                      symfony: '5.1.*'
+                      symfony: '5.2.*'
                       bootable: true
                       coverage: pcov
             fail-fast: false
@@ -68,12 +68,11 @@ jobs:
                   composer create-project "symfony/skeleton:${SKELETON_VERSION}" flex
                   cd flex
                   composer config extra.symfony.allow-contrib true
-                  composer req tilleuls/url-signer-bundle league/uri-components:2.x-dev
+                  composer req tilleuls/url-signer-bundle
                   cd ..
                   rm -rf flex
 
             - name: Check code style
-              if: matrix.php != '8.0' # To remove when PHP 8.0.1 is used
               run: vendor/bin/php-cs-fixer fix --ansi --diff --dry-run
 
             - name: Analyze code (Psalm)
