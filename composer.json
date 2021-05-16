@@ -34,8 +34,8 @@
     "require-dev": {
         "behat/behat": "^3.8",
         "friends-of-behat/symfony-extension": "dev-master",
-        "friendsofphp/php-cs-fixer": "^2.18",
-        "infection/infection": "^0.21.0",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "infection/infection": "^0.23.0",
         "jangregor/phpstan-prophecy": "^0.8",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan": "^0.12",
