@@ -21,6 +21,7 @@
             <directory>features</directory>
             <directory>tests</directory>
             <directory>vendor</directory>
+            <file>.php-cs-fixer.php</file>
             <file>CoopTilleulsUrlSignerBundle.php</file>
             <file>DependencyInjection/Configuration.php</file>
         </exclude>
