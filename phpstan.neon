@@ -1,6 +1,7 @@
 parameters:
     level: max
     excludes_analyse:
+        - %currentWorkingDirectory%/features/app/src/Kernel.php
         - %currentWorkingDirectory%/features/app/var
         - %currentWorkingDirectory%/DependencyInjection/Configuration.php
         - %currentWorkingDirectory%/vendor

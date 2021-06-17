@@ -18,12 +18,12 @@ jobs:
                     - '8.0'
                 symfony:
                     - '4.4.*'
-                    - '5.2.*'
+                    - '5.3.*'
                 coverage:
                     - none
                 include:
                     - php: '7.4'
-                      symfony: '5.2.*'
+                      symfony: '5.3.*'
                       bootable: true
                       coverage: pcov
             fail-fast: false
@@ -55,7 +55,9 @@ jobs:
                   restore-keys: ${{ runner.os }}-composer-
 
             - name: Configure Symfony
-              run: composer config extra.symfony.require "${{ matrix.symfony }}"
+              run: |
+                  composer global require symfony/flex
+                  composer config extra.symfony.require "${{ matrix.symfony }}"
 
             - name: Update project dependencies
               run: composer update --no-progress --ansi --prefer-stable
@@ -82,6 +84,7 @@ jobs:
               run: vendor/bin/phpstan analyze . --ansi --no-progress --error-format=github
 
             - name: Run functional tests
+              if: ${{ !startsWith(matrix.symfony, '4') }}
               run: vendor/bin/behat --colors
 
             - name: Run unit tests
