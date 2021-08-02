@@ -27,6 +27,7 @@ final class CoopTilleulsUrlSignerExtension extends Extension
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
+        /** @var array{signer: string, signature_key: string, default_expiration: integer, expires_parameter: string, signature_parameter: string} */
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->registerForAutoconfiguration(UrlSignerInterface::class)->addTag('url_signer.signer');
