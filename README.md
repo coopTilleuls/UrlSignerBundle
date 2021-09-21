@@ -111,7 +111,7 @@ services:
             $urlSigner: '@url_signer.signer'
 ```
 
-You can now use the URL signer to generate a signed URL:
+You can now use the URL signer to generate a signed path or a signed URL:
 
 ```php
 // src/Controller/DocumentController.php
@@ -123,6 +123,7 @@ class DocumentController extends AbstractController
 {
     private function generateSignedUrl(): string
     {
+        // Or $url = $this->generateUrl('secured_document', ['id' => 42], UrlGeneratorInterface::ABSOLUTE_URL);
         $url = $this->generateUrl('secured_document', ['id' => 42]);
         // Will expire after one hour.
         $expiration = (new \DateTime('now'))->add(new \DateInterval('PT1H'));
@@ -132,7 +133,8 @@ class DocumentController extends AbstractController
         // Not passing the second argument will use the default expiration time (1 day by default).
         // return $this->urlSigner->sign($url);
 
-        // Will return a URL (more precisely a path) like this: /documents/42?expires=1611316656&signature=82f6958bd5c96fda58b7a55ade7f651fadb51e12171d58ed271e744bcc7c85c3
+        // Will return a path like this: /documents/42?expires=1611316656&signature=82f6958bd5c96fda58b7a55ade7f651fadb51e12171d58ed271e744bcc7c85c3
+        // Or a URL depending on what has been signed before.
         return $this->urlSigner->sign($url, $expiration);
     }
 }
