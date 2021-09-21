@@ -40,6 +40,14 @@ final class UrlSignerContext implements Context
     }
 
     /**
+     * @When I create an absolute signed URL
+     */
+    public function iCreateAnAbsoluteSignedUrl(): void
+    {
+        $this->client->request('GET', '/sign?referenceType='.UrlGeneratorInterface::ABSOLUTE_URL);
+    }
+
+    /**
      * @When I request the signed URL
      */
     public function iRequestTheSignedUrl(): void

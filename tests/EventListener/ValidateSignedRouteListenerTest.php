@@ -50,16 +50,18 @@ final class ValidateSignedRouteListenerTest extends TestCase
         static::assertArrayHasKey(RequestEvent::class, ValidateSignedRouteListener::getSubscribedEvents());
     }
 
-    public function testValidateSignedRoute(): void
+    /** @dataProvider signedUrlProvider */
+    public function testValidateSignedRoute(string $validUrl): void
     {
         $request = Request::create('http://test.org/valid-signature');
         $request->attributes->set('_route_params', ['_signed' => true]);
         $event = new RequestEvent($this->prophesize(HttpKernelInterface::class)->reveal(), $request, null);
-        $this->signerProphecy->validate('/valid-signature')->willReturn(true);
+        $this->signerProphecy->validate($validUrl)->willReturn(true);
 
         $this->dispatcher->dispatch($event);
 
-        $this->signerProphecy->validate(Argument::any())->shouldHaveBeenCalledOnce();
+        $isPath = 0 === strpos($validUrl, '/');
+        $this->signerProphecy->validate(Argument::any())->shouldHaveBeenCalledTimes($isPath ? 1 : 2);
     }
 
     public function testValidateSignedRouteMissingRouteParamsAttribute(): void
@@ -102,10 +104,24 @@ final class ValidateSignedRouteListenerTest extends TestCase
         $request = Request::create('http://test.org/invalid-signature');
         $request->attributes->set('_route_params', ['_signed' => true]);
         $event = new RequestEvent($this->prophesize(HttpKernelInterface::class)->reveal(), $request, null);
+
         $this->signerProphecy->validate('/invalid-signature')->willReturn(false);
+        $this->signerProphecy->validate('http://test.org/invalid-signature')->willReturn(false);
 
         $this->dispatcher->dispatch($event);
 
         $this->signerProphecy->validate(Argument::any())->shouldHaveBeenCalledOnce();
+    }
+
+    /** @return iterable<string, array<string, string>> */
+    public function signedUrlProvider(): iterable
+    {
+        yield 'absolutePath' => [
+            'validUrl' => '/valid-signature',
+        ];
+
+        yield 'absoluteUrl' => [
+            'validUrl' => 'http://test.org/valid-signature',
+        ];
     }
 }

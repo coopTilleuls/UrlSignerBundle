@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.0
+
+### New Features
+
+* Add support for absolute URLs
+
 ## 1.0.2
 
 ### Bug Fixes

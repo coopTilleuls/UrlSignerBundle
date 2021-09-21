@@ -13,7 +13,9 @@ namespace CoopTilleuls\UrlSignerBundle\Tests\Controller;
 
 use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SignController extends AbstractController
 {
@@ -24,8 +26,10 @@ class SignController extends AbstractController
         $this->urlSigner = $urlSigner;
     }
 
-    public function __invoke(): Response
+    public function __invoke(Request $request): Response
     {
-        return new Response($this->urlSigner->sign($this->generateUrl('secured_document', ['id' => 42]), 3));
+        $referenceType = (int) $request->query->get('referenceType', UrlGeneratorInterface::ABSOLUTE_PATH);
+
+        return new Response($this->urlSigner->sign($this->generateUrl('secured_document', ['id' => 42], $referenceType), 3));
     }
 }
