@@ -100,9 +100,9 @@ jobs:
               env:
                   COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  composer global require --no-progress --no-suggest --ansi cedx/coveralls
+                  composer global require --no-progress --no-suggest --ansi php-coveralls/php-coveralls
                   export PATH="$PATH:$HOME/.composer/vendor/bin"
-                  coveralls ./clover.xml
+                  php-coveralls --coverage_clover=./clover.xml --json_path=/tmp/coverage.json -v --ansi
 
             - name: Run mutation testing
               if: matrix.coverage != 'none'
