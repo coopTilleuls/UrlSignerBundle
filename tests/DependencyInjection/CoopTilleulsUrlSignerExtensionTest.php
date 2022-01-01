@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -42,7 +43,7 @@ final class CoopTilleulsUrlSignerExtensionTest extends TestCase
         $this->containerBuilderProphecy = $this->prophesize(ContainerBuilder::class);
         $this->extension = new CoopTilleulsUrlSignerExtension();
 
-        $this->containerBuilderProphecy->hasExtension('http://symfony.com/schema/dic/services')->willReturn();
+        $this->containerBuilderProphecy->hasExtension('http://symfony.com/schema/dic/services')->willReturn(false);
         $this->containerBuilderProphecy->removeBindings(Argument::type('string'))->will(function () {});
     }
 
@@ -53,8 +54,11 @@ final class CoopTilleulsUrlSignerExtensionTest extends TestCase
             'coop_tilleuls_url_signer' => ['signature_key' => $signatureKey],
         ];
         $childDefinitionProphecy = $this->prophesize(ChildDefinition::class);
+        $childDefinitionProphecy->addTag('url_signer.signer')->willReturn($childDefinitionProphecy);
         $this->containerBuilderProphecy->registerForAutoconfiguration(UrlSignerInterface::class)->willReturn($childDefinitionProphecy->reveal());
         $this->containerBuilderProphecy->fileExists(Argument::containingString('/../Resources/config'))->willReturn(true);
+        $this->containerBuilderProphecy->setDefinition(Argument::cetera())->willReturn(new Definition());
+        $this->containerBuilderProphecy->setAlias(Argument::cetera())->willReturn(new Alias('alias'));
 
         $this->extension->load($configs, $this->containerBuilderProphecy->reveal());
 
@@ -99,10 +103,11 @@ final class CoopTilleulsUrlSignerExtensionTest extends TestCase
             ],
         ];
         $childDefinitionProphecy = $this->prophesize(ChildDefinition::class);
+        $childDefinitionProphecy->addTag('url_signer.signer')->willReturn($childDefinitionProphecy);
         $this->containerBuilderProphecy->registerForAutoconfiguration(UrlSignerInterface::class)->willReturn($childDefinitionProphecy->reveal());
         $this->containerBuilderProphecy->fileExists(Argument::containingString('/../Resources/config'))->willReturn(true);
-        $this->containerBuilderProphecy->setDefinition(Argument::type('string'), Argument::type(Definition::class))->will(function () {});
-        $this->containerBuilderProphecy->setAlias(Argument::type('string'), Argument::any())->will(function () {});
+        $this->containerBuilderProphecy->setDefinition(Argument::cetera())->willReturn(new Definition());
+        $this->containerBuilderProphecy->setAlias(Argument::cetera())->willReturn(new Alias('alias'));
 
         $this->extension->load($configs, $this->containerBuilderProphecy->reveal());
 

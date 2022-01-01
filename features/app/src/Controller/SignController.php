@@ -28,7 +28,11 @@ class SignController extends AbstractController
 
     public function __invoke(Request $request): Response
     {
-        $referenceType = (int) $request->query->get('referenceType', UrlGeneratorInterface::ABSOLUTE_PATH);
+        $referenceType = $request->query->get('referenceType', (string) UrlGeneratorInterface::ABSOLUTE_PATH);
+        if (!is_numeric($referenceType)) {
+            throw new \UnexpectedValueException('referenceType query parameter needs to be numeric.');
+        }
+        $referenceType = (int) $referenceType;
 
         return new Response($this->urlSigner->sign($this->generateUrl('secured_document', ['id' => 42], $referenceType), 3));
     }
