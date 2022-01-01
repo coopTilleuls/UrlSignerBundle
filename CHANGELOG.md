@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.0
+
+### New Features
+
+* Allow Symfony 6
+
 ## 1.1.0
 
 ### New Features

@@ -1,6 +1,6 @@
 parameters:
     level: max
-    excludes_analyse:
+    excludePaths:
         - %currentWorkingDirectory%/features/app/src/Kernel.php
         - %currentWorkingDirectory%/features/app/var
         - %currentWorkingDirectory%/DependencyInjection/Configuration.php

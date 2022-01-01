@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
@@ -49,22 +50,26 @@ final class SignerPassTest extends TestCase
             'url_signer.signer.sha256' => [],
             'url_signer.signer.md5' => [],
         ]);
-        $md5SignerServiceDefinitionProphecy = $this->prophesize(Definition::class);
-        $sha256SignerServiceDefinitionProphecy = $this->prophesize(Definition::class);
-        $this->containerBuilderProphecy->getDefinition('url_signer.signer.md5')->willReturn($md5SignerServiceDefinitionProphecy->reveal());
-        $this->containerBuilderProphecy->getDefinition('url_signer.signer.sha256')->willReturn($sha256SignerServiceDefinitionProphecy->reveal());
-        $md5SignerServiceDefinitionProphecy->getClass()->willReturn(Md5UrlSigner::class);
-        $sha256SignerServiceDefinitionProphecy->getClass()->willReturn(Sha256UrlSigner::class);
-        $this->containerBuilderProphecy->getParameter('url_signer.signer')->willReturn(Md5UrlSigner::getName());
-
-        $this->signerPass->process($this->containerBuilderProphecy->reveal());
-
         $bindings = [
             'string $signatureKey' => '%url_signer.signature_key%',
             'int $defaultExpiration' => '%url_signer.default_expiration%',
             'string $expiresParameter' => '%url_signer.expires_parameter%',
             'string $signatureParameter' => '%url_signer.signature_parameter%',
         ];
+        $md5SignerServiceDefinitionProphecy = $this->prophesize(Definition::class);
+        $md5SignerServiceDefinitionProphecy->setBindings($bindings)->willReturn($md5SignerServiceDefinitionProphecy);
+        $sha256SignerServiceDefinitionProphecy = $this->prophesize(Definition::class);
+        $sha256SignerServiceDefinitionProphecy->setBindings($bindings)->willReturn($sha256SignerServiceDefinitionProphecy);
+        $this->containerBuilderProphecy->getDefinition('url_signer.signer.md5')->willReturn($md5SignerServiceDefinitionProphecy->reveal());
+        $this->containerBuilderProphecy->getDefinition('url_signer.signer.sha256')->willReturn($sha256SignerServiceDefinitionProphecy->reveal());
+        $md5SignerServiceDefinitionProphecy->getClass()->willReturn(Md5UrlSigner::class);
+        $sha256SignerServiceDefinitionProphecy->getClass()->willReturn(Sha256UrlSigner::class);
+        $this->containerBuilderProphecy->getParameter('url_signer.signer')->willReturn(Md5UrlSigner::getName());
+        $this->containerBuilderProphecy->setAlias('url_signer.signer', 'url_signer.signer.md5')->willReturn(new Alias('url_signer.signer.md5'));
+        $this->containerBuilderProphecy->setAlias(UrlSignerInterface::class, 'url_signer.signer.md5')->willReturn(new Alias('url_signer.signer.md5'));
+
+        $this->signerPass->process($this->containerBuilderProphecy->reveal());
+
         $md5SignerServiceDefinitionProphecy->setBindings($bindings)->shouldHaveBeenCalledOnce();
         $sha256SignerServiceDefinitionProphecy->setBindings($bindings)->shouldHaveBeenCalledOnce();
         $this->containerBuilderProphecy->setAlias('url_signer.signer', 'url_signer.signer.md5')->shouldHaveBeenCalledOnce();
@@ -80,9 +85,9 @@ final class SignerPassTest extends TestCase
             'url_signer.signer.sha256' => [],
         ]);
         $sha256SignerServiceDefinitionProphecy = $this->prophesize(Definition::class);
+        $sha256SignerServiceDefinitionProphecy->setBindings(Argument::type('array'))->willReturn($sha256SignerServiceDefinitionProphecy);
         $this->containerBuilderProphecy->getDefinition('url_signer.signer.sha256')->willReturn($sha256SignerServiceDefinitionProphecy->reveal());
         $sha256SignerServiceDefinitionProphecy->getClass()->willReturn(Sha256UrlSigner::class);
-        $sha256SignerServiceDefinitionProphecy->setBindings(Argument::type('array'))->will(function () {});
         $this->containerBuilderProphecy->getParameter('url_signer.signer')->willReturn('invalid');
 
         $this->signerPass->process($this->containerBuilderProphecy->reveal());
