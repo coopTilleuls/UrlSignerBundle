@@ -13,8 +13,8 @@
         "@default": true
     },
     "logs": {
-        "badge": {
-            "branch": "main"
+        "stryker": {
+            "report": "main"
         }
     }
 }

@@ -20,7 +20,7 @@ jobs:
                 symfony:
                     - '4.4.*'
                     - '5.4.*'
-                    - '6.0.*'
+                    - '6.1.*'
                 coverage:
                     - none
                 include:
@@ -30,7 +30,9 @@ jobs:
                       coverage: pcov
                 exclude:
                     - php: '7.4'
-                      symfony: '6.0.*'
+                      symfony: '6.1.*'
+                    - php: '8.0'
+                      symfony: '6.1.*'
             fail-fast: false
         steps:
             - name: Checkout

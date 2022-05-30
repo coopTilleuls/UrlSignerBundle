@@ -35,7 +35,7 @@
         "behat/behat": "^3.8",
         "friends-of-behat/symfony-extension": "^2.2",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "infection/infection": "^0.25",
+        "infection/infection": "^0.26",
         "jangregor/phpstan-prophecy": "^1.0",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan": "^1.0",
@@ -48,6 +48,9 @@
         "vimeo/psalm": "^4.4"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "infection/extension-installer": true
+        }
     }
 }
