@@ -75,8 +75,9 @@ jobs:
               env:
                   SKELETON_VERSION: ${{ matrix.symfony }}
               run: |
-                  composer create-project "symfony/skeleton:${SKELETON_VERSION}" flex
+                  mkdir flex
                   cd flex
+                  composer create-project "symfony/skeleton:${SKELETON_VERSION}" .
                   composer config extra.symfony.allow-contrib true
                   composer req tilleuls/url-signer-bundle
                   cd ..
