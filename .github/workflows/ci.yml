@@ -63,6 +63,7 @@ jobs:
 
             - name: Configure Symfony
               run: |
+                  composer global config allow-plugins.symfony/flex true
                   composer global require symfony/flex
                   composer config extra.symfony.require "${{ matrix.symfony }}"
 
