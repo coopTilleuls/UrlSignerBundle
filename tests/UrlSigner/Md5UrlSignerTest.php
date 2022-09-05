@@ -18,6 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @covers \CoopTilleuls\UrlSignerBundle\UrlSigner\Md5UrlSigner
  */
 final class Md5UrlSignerTest extends TestCase

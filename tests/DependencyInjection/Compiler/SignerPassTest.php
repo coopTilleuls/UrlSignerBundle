@@ -28,6 +28,7 @@ use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
 /**
  * @internal
+ *
  * @covers \CoopTilleuls\UrlSignerBundle\DependencyInjection\Compiler\SignerPass
  */
 final class SignerPassTest extends TestCase

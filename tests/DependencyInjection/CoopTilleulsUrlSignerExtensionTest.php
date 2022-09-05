@@ -28,6 +28,7 @@ use Symfony\Component\DependencyInjection\Definition;
 
 /**
  * @internal
+ *
  * @covers \CoopTilleuls\UrlSignerBundle\DependencyInjection\CoopTilleulsUrlSignerExtension
  */
 final class CoopTilleulsUrlSignerExtensionTest extends TestCase

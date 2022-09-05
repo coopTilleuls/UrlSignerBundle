@@ -18,6 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @covers \CoopTilleuls\UrlSignerBundle\UrlSigner\Sha256UrlSigner
  */
 final class Sha256UrlSignerTest extends TestCase

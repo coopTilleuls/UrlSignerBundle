@@ -19,6 +19,7 @@ use Psr\Http\Message\UriInterface;
 
 /**
  * @internal
+ *
  * @covers \CoopTilleuls\UrlSignerBundle\UrlSigner\AbstractUrlSigner
  */
 final class AbstractUrlSignerTest extends TestCase

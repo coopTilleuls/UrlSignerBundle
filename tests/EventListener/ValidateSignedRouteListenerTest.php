@@ -27,6 +27,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * @internal
+ *
  * @covers \CoopTilleuls\UrlSignerBundle\EventListener\ValidateSignedRouteListener
  */
 final class ValidateSignedRouteListenerTest extends TestCase
