@@ -41,7 +41,7 @@ jobs:
                   fetch-depth: 0
 
             - name: Check commit messages
-              uses: wagoid/commitlint-github-action@v2
+              uses: wagoid/commitlint-github-action@v5
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -52,7 +52,7 @@ jobs:
 
             - name: Get Composer cache directory
               id: composer-cache
-              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
             - name: Cache dependencies
               uses: actions/cache@v3
