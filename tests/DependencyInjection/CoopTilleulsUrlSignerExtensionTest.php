@@ -67,7 +67,7 @@ final class CoopTilleulsUrlSignerExtensionTest extends TestCase
         $childDefinitionProphecy->addTag('url_signer.signer')->shouldHaveBeenCalledOnce();
         $this->containerBuilderProphecy->setParameter('url_signer.signer', Sha256UrlSigner::getName())->shouldHaveBeenCalledOnce();
         $this->containerBuilderProphecy->setParameter('url_signer.signature_key', $signatureKey)->shouldHaveBeenCalledOnce();
-        $this->containerBuilderProphecy->setParameter('url_signer.default_expiration', 1)->shouldHaveBeenCalledOnce();
+        $this->containerBuilderProphecy->setParameter('url_signer.default_expiration', 86400)->shouldHaveBeenCalledOnce();
         $this->containerBuilderProphecy->setParameter('url_signer.expires_parameter', 'expires')->shouldHaveBeenCalledOnce();
         $this->containerBuilderProphecy->setParameter('url_signer.signature_parameter', 'signature')->shouldHaveBeenCalledOnce();
         $definitions = [

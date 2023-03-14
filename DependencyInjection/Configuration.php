@@ -45,9 +45,9 @@ final class Configuration implements ConfigurationInterface
         /** @var NodeBuilder $childNode */
         $childNode = $childNode
             ->scalarNode('default_expiration')
-                ->defaultValue(1)
+                ->defaultValue(86400)
                 ->cannotBeEmpty()
-                ->info('default expiration time in days')
+                ->info('default expiration time in seconds')
             ->end()
         ;
         /** @var NodeBuilder $childNode */

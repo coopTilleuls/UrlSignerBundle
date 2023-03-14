@@ -14,13 +14,12 @@ jobs:
         strategy:
             matrix:
                 php:
-                    - '7.4'
-                    - '8.0'
                     - '8.1'
+                    - '8.2'
                 symfony:
-                    - '4.4.*'
                     - '5.4.*'
                     - '6.1.*'
+                    - '6.2.*'
                 coverage:
                     - none
                 include:
@@ -28,11 +27,6 @@ jobs:
                       symfony: '5.4.*'
                       bootable: true
                       coverage: pcov
-                exclude:
-                    - php: '7.4'
-                      symfony: '6.1.*'
-                    - php: '8.0'
-                      symfony: '6.1.*'
             fail-fast: false
         steps:
             - name: Checkout

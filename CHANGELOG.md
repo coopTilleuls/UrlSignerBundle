@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.0
+
+* Upgrade to `spatie/url-signer` 2.x
+* Minimal PHP version is now 8.1
+* Expiration time is now in seconds instead of days
+
 ## 1.2.0
 
 ### New Features

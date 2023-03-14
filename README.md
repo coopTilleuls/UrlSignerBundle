@@ -62,12 +62,12 @@ coop_tilleuls_url_signer:
     signer: 'md5' # 'sha256' by default
 ```
 
-The default expiration time (in days) can be changed too:
+The default expiration time (in seconds) can be changed too:
 
 ```yml
 # config/packages/url_signer.yaml
 coop_tilleuls_url_signer:
-    default_expiration: 3 # 1 by default
+    default_expiration: 3600 # 86400 by default
 ```
 
 You can also customize the URL parameter names:
@@ -127,10 +127,10 @@ class DocumentController extends AbstractController
         $url = $this->generateUrl('secured_document', ['id' => 42]);
         // Will expire after one hour.
         $expiration = (new \DateTime('now'))->add(new \DateInterval('PT1H'));
-        // An integer can also be used for the expiration: it will correspond to a number of days. For 3 days:
-        // $expiration = 3;
+        // An integer can also be used for the expiration: it will correspond to a number of seconds. For 1 hour:
+        // $expiration = 3600;
 
-        // Not passing the second argument will use the default expiration time (1 day by default).
+        // Not passing the second argument will use the default expiration time (86400 seconds by default).
         // return $this->urlSigner->sign($url);
 
         // Will return a path like this: /documents/42?expires=1611316656&signature=82f6958bd5c96fda58b7a55ade7f651fadb51e12171d58ed271e744bcc7c85c3
@@ -167,7 +167,6 @@ Create a class extending the `AbstractUrlSigner` class:
 namespace App\UrlSigner;
 
 use CoopTilleuls\UrlSignerBundle\UrlSigner\AbstractUrlSigner;
-use Psr\Http\Message\UriInterface;
 
 class CustomUrlSigner extends AbstractUrlSigner
 {
@@ -176,11 +175,9 @@ class CustomUrlSigner extends AbstractUrlSigner
         return 'custom';
     }
 
-    protected function createSignature(UriInterface|string $url, string $expiration): string
+    protected function createSignature(string $url, string $expiration, string $signatureKey): string
     {
-        $url = (string) $url;
-
-        return hash_hmac('algo', "{$url}::{$expiration}", $this->signatureKey);
+        return hash_hmac('algo', "{$url}::{$expiration}", $signatureKey);
     }
 }
 ```

@@ -57,11 +57,13 @@ final class ValidateSignedRouteListenerTest extends TestCase
         $request = Request::create('http://test.org/valid-signature');
         $request->attributes->set('_route_params', ['_signed' => true]);
         $event = new RequestEvent($this->prophesize(HttpKernelInterface::class)->reveal(), $request, null);
+        $this->signerProphecy->validate(Argument::any())->willReturn(false);
         $this->signerProphecy->validate($validUrl)->willReturn(true);
 
         $this->dispatcher->dispatch($event);
 
-        $isPath = 0 === strpos($validUrl, '/');
+        $isPath = str_starts_with($validUrl, '/');
+
         $this->signerProphecy->validate(Argument::any())->shouldHaveBeenCalledTimes($isPath ? 1 : 2);
     }
 
