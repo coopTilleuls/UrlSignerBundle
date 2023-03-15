@@ -15,7 +15,6 @@ namespace Tests\UrlSigner;
 
 use CoopTilleuls\UrlSignerBundle\UrlSigner\AbstractUrlSigner;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\UriInterface;
 
 /**
  * @internal
@@ -34,19 +33,14 @@ final class AbstractUrlSignerTest extends TestCase
                 return 'abstract';
             }
 
-            /**
-             * @param UriInterface|string $url
-             */
-            protected function createSignature($url, string $expiration): string
+            protected function createSignature(string $url, string $expiration, string $signatureKey): string
             {
-                $url = (string) $url;
-
-                return "{$url}::{$expiration}::{$this->signatureKey}";
+                return "{$url}::{$expiration}::{$signatureKey}";
             }
 
-            protected function getExpirationTimestamp($expiration): string
+            protected function getExpirationTimestamp(int|\DateTime $expirationInSeconds): string
             {
-                return $expiration instanceof \DateTime ? 'datetime' : (string) $expiration;
+                return $expirationInSeconds instanceof \DateTime ? 'datetime' : (string) $expirationInSeconds;
             }
         };
     }
@@ -55,13 +49,13 @@ final class AbstractUrlSignerTest extends TestCase
     {
         $signedUrl = $this->signer->sign('http://test.org/valid-signature');
 
-        static::assertSame('http://test.org/valid-signature?exp=5&sign=http://test.org/valid-signature::5::secret', $signedUrl);
+        static::assertSame('http://test.org/valid-signature?exp=5&sign=http%3A%2F%2Ftest.org%2Fvalid-signature%3A%3A5%3A%3Asecret', $signedUrl);
     }
 
     public function testSignWithExpiration(): void
     {
         $signedUrl = $this->signer->sign('http://test.org/valid-signature', 7);
 
-        static::assertSame('http://test.org/valid-signature?exp=7&sign=http://test.org/valid-signature::7::secret', $signedUrl);
+        static::assertSame('http://test.org/valid-signature?exp=7&sign=http%3A%2F%2Ftest.org%2Fvalid-signature%3A%3A7%3A%3Asecret', $signedUrl);
     }
 }

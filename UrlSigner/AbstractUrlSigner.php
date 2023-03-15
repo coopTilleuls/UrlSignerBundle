@@ -26,14 +26,8 @@ abstract class AbstractUrlSigner extends BaseUrlSigner implements UrlSignerInter
         $this->defaultExpiration = $defaultExpiration;
     }
 
-    /**
-     * @param string             $url
-     * @param \DateTime|int|null $expiration
-     *
-     * @psalm-suppress MoreSpecificImplementedParamType
-     */
-    public function sign($url, $expiration = null): string
+    public function sign(string $url, int|\DateTime $expiration = null, string $signatureKey = null): string
     {
-        return parent::sign($url, $expiration ?? $this->defaultExpiration);
+        return parent::sign($url, $expiration ?? $this->defaultExpiration, $signatureKey);
     }
 }

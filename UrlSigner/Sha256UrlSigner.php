@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\UrlSignerBundle\UrlSigner;
 
-use Psr\Http\Message\UriInterface;
-
 final class Sha256UrlSigner extends AbstractUrlSigner
 {
     public static function getName(): string
@@ -24,11 +22,9 @@ final class Sha256UrlSigner extends AbstractUrlSigner
 
     /**
      * Generate a token to identify the secure action.
-     *
-     * @param UriInterface|string $url
      */
-    protected function createSignature($url, string $expiration): string
+    protected function createSignature(string $url, string $expiration, string $signatureKey): string
     {
-        return hash_hmac('sha256', "{$url}::{$expiration}", $this->signatureKey);
+        return hash_hmac(self::getName(), "{$url}::{$expiration}", $signatureKey);
     }
 }
