@@ -41,11 +41,11 @@
         "phpstan/phpstan": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.5",
-        "psalm/plugin-phpunit": "^0.17",
-        "psalm/plugin-symfony": "^4.0",
+        "psalm/plugin-phpunit": "^0.18",
+        "psalm/plugin-symfony": "^5.0",
         "symfony/browser-kit": "^4.4 || ^5.0 || ^6.0",
         "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0",
-        "vimeo/psalm": "^4.4"
+        "vimeo/psalm": "^5.8"
     },
     "config": {
         "sort-packages": true,
