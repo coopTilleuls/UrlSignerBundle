@@ -17,7 +17,7 @@ use Spatie\UrlSigner\Contracts\UrlSigner;
 
 interface UrlSignerInterface extends UrlSigner
 {
-    public function sign(string $url, int|\DateTimeInterface $expiration, string $signatureKey = null): string;
+    public function sign(string $url, \DateTimeInterface|int $expiration, string $signatureKey = null): string;
 
     public static function getName(): string;
 }

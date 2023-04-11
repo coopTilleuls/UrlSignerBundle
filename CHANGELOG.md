@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.2.0
+
+* Allow to use a date/time string in default expiration time configuration
+
 ## 2.1.0
 
 * Minor **BC break**: use the new classes from `spatie/url-signer` 2.1.0 (`DateTimeInterface` instead of `DateTime` in `sign`)

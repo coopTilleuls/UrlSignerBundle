@@ -62,12 +62,22 @@ coop_tilleuls_url_signer:
     signer: 'md5' # 'sha256' by default
 ```
 
-The default expiration time (in seconds) can be changed too:
+The default expiration time can be changed too.
+
+In seconds:
 
 ```yml
 # config/packages/url_signer.yaml
 coop_tilleuls_url_signer:
     default_expiration: 3600 # 86400 by default
+```
+
+With a date/time string:
+
+```yml
+# config/packages/url_signer.yaml
+coop_tilleuls_url_signer:
+    default_expiration: '1 day'
 ```
 
 You can also customize the URL parameter names:

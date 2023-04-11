@@ -17,16 +17,16 @@ use Spatie\UrlSigner\AbstractUrlSigner as SpatieAbstractUrlSigner;
 
 abstract class AbstractUrlSigner extends SpatieAbstractUrlSigner implements UrlSignerInterface
 {
-    private int $defaultExpiration;
+    private \DateTimeInterface|int $defaultExpiration;
 
-    public function __construct(string $signatureKey, int $defaultExpiration, string $expiresParameter, string $signatureParameter)
+    public function __construct(string $signatureKey, int|string $defaultExpiration, string $expiresParameter, string $signatureParameter)
     {
         parent::__construct($signatureKey, $expiresParameter, $signatureParameter);
 
-        $this->defaultExpiration = $defaultExpiration;
+        $this->defaultExpiration = \is_string($defaultExpiration) ? new \DateTimeImmutable($defaultExpiration) : $defaultExpiration;
     }
 
-    public function sign(string $url, int|\DateTimeInterface $expiration = null, string $signatureKey = null): string
+    public function sign(string $url, \DateTimeInterface|int $expiration = null, string $signatureKey = null): string
     {
         return parent::sign($url, $expiration ?? $this->defaultExpiration, $signatureKey);
     }

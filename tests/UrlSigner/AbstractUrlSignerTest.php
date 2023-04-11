@@ -24,25 +24,12 @@ use PHPUnit\Framework\TestCase;
 final class AbstractUrlSignerTest extends TestCase
 {
     private AbstractUrlSigner $signer;
+    private AbstractUrlSigner $signerDateTime;
 
     protected function setUp(): void
     {
-        $this->signer = new class('secret', 5, 'exp', 'sign') extends AbstractUrlSigner {
-            public static function getName(): string
-            {
-                return 'abstract';
-            }
-
-            protected function createSignature(string $url, string $expiration, string $signatureKey): string
-            {
-                return "{$url}::{$expiration}::{$signatureKey}";
-            }
-
-            protected function getExpirationTimestamp(int|\DateTimeInterface $expirationInSeconds): string
-            {
-                return $expirationInSeconds instanceof \DateTimeInterface ? 'datetime' : (string) $expirationInSeconds;
-            }
-        };
+        $this->signer = new Signer('secret', 5, 'exp', 'sign');
+        $this->signerDateTime = new Signer('secret', '2023-09-14', 'exp', 'sign');
     }
 
     public function testSignDefaultExpiration(): void
@@ -57,5 +44,37 @@ final class AbstractUrlSignerTest extends TestCase
         $signedUrl = $this->signer->sign('http://test.org/valid-signature', 7);
 
         self::assertSame('http://test.org/valid-signature?exp=7&sign=http%3A%2F%2Ftest.org%2Fvalid-signature%3A%3A7%3A%3Asecret', $signedUrl);
+    }
+
+    public function testSignDefaultExpirationWithDateTime(): void
+    {
+        $signedUrl = $this->signerDateTime->sign('http://test.org/valid-signature');
+
+        self::assertSame('http://test.org/valid-signature?exp=1694649600&sign=http%3A%2F%2Ftest.org%2Fvalid-signature%3A%3A1694649600%3A%3Asecret', $signedUrl);
+    }
+
+    public function testSignWithExpirationWithDateTime(): void
+    {
+        $signedUrl = $this->signerDateTime->sign('http://test.org/valid-signature', 7);
+
+        self::assertSame('http://test.org/valid-signature?exp=7&sign=http%3A%2F%2Ftest.org%2Fvalid-signature%3A%3A7%3A%3Asecret', $signedUrl);
+    }
+}
+
+final class Signer extends AbstractUrlSigner
+{
+    public static function getName(): string
+    {
+        return 'abstract';
+    }
+
+    protected function createSignature(string $url, string $expiration, string $signatureKey): string
+    {
+        return "{$url}::{$expiration}::{$signatureKey}";
+    }
+
+    protected function getExpirationTimestamp(\DateTimeInterface|int $expirationInSeconds): string
+    {
+        return (string) ($expirationInSeconds instanceof \DateTimeInterface ? $expirationInSeconds->getTimestamp() : $expirationInSeconds);
     }
 }
