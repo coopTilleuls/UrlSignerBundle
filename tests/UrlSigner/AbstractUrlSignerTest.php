@@ -49,13 +49,13 @@ final class AbstractUrlSignerTest extends TestCase
     {
         $signedUrl = $this->signer->sign('http://test.org/valid-signature');
 
-        static::assertSame('http://test.org/valid-signature?exp=5&sign=http%3A%2F%2Ftest.org%2Fvalid-signature%3A%3A5%3A%3Asecret', $signedUrl);
+        self::assertSame('http://test.org/valid-signature?exp=5&sign=http%3A%2F%2Ftest.org%2Fvalid-signature%3A%3A5%3A%3Asecret', $signedUrl);
     }
 
     public function testSignWithExpiration(): void
     {
         $signedUrl = $this->signer->sign('http://test.org/valid-signature', 7);
 
-        static::assertSame('http://test.org/valid-signature?exp=7&sign=http%3A%2F%2Ftest.org%2Fvalid-signature%3A%3A7%3A%3Asecret', $signedUrl);
+        self::assertSame('http://test.org/valid-signature?exp=7&sign=http%3A%2F%2Ftest.org%2Fvalid-signature%3A%3A7%3A%3Asecret', $signedUrl);
     }
 }

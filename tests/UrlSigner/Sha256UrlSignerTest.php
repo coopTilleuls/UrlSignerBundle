@@ -35,12 +35,12 @@ final class Sha256UrlSignerTest extends TestCase
         $url = 'http://test.org/valid-signature';
         $signedUrl = $this->signer->sign($url);
 
-        static::assertFalse($this->signer->validate($url));
-        static::assertTrue($this->signer->validate($signedUrl));
+        self::assertFalse($this->signer->validate($url));
+        self::assertTrue($this->signer->validate($signedUrl));
     }
 
     public function testGetName(): void
     {
-        static::assertSame('sha256', Sha256UrlSigner::getName());
+        self::assertSame('sha256', Sha256UrlSigner::getName());
     }
 }

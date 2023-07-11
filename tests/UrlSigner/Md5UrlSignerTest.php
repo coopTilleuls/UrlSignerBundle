@@ -35,12 +35,12 @@ final class Md5UrlSignerTest extends TestCase
         $url = 'http://test.org/valid-signature';
         $signedUrl = $this->signer->sign($url);
 
-        static::assertFalse($this->signer->validate($url));
-        static::assertTrue($this->signer->validate($signedUrl));
+        self::assertFalse($this->signer->validate($url));
+        self::assertTrue($this->signer->validate($signedUrl));
     }
 
     public function testGetName(): void
     {
-        static::assertSame('md5', Md5UrlSigner::getName());
+        self::assertSame('md5', Md5UrlSigner::getName());
     }
 }

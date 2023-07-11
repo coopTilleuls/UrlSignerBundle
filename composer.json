@@ -35,7 +35,7 @@
         "behat/behat": "^3.8",
         "friends-of-behat/symfony-extension": "^2.2",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "infection/infection": "^0.26",
+        "infection/infection": "^0.27",
         "jangregor/phpstan-prophecy": "^1.0",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan": "^1.0",

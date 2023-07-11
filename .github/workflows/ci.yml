@@ -18,8 +18,8 @@ jobs:
                     - '8.2'
                 symfony:
                     - '5.4.*'
-                    - '6.1.*'
                     - '6.2.*'
+                    - '6.3.*'
                 coverage:
                     - none
                 include:

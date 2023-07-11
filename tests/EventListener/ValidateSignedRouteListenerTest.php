@@ -48,10 +48,10 @@ final class ValidateSignedRouteListenerTest extends TestCase
 
     public function testSubscribedEvents(): void
     {
-        static::assertArrayHasKey(RequestEvent::class, ValidateSignedRouteListener::getSubscribedEvents());
+        self::assertArrayHasKey(RequestEvent::class, ValidateSignedRouteListener::getSubscribedEvents());
     }
 
-    /** @dataProvider signedUrlProvider */
+    /** @dataProvider provideValidateSignedRouteCases */
     public function testValidateSignedRoute(string $validUrl): void
     {
         $request = Request::create('http://test.org/valid-signature');
@@ -117,7 +117,7 @@ final class ValidateSignedRouteListenerTest extends TestCase
     }
 
     /** @return iterable<string, array<string, string>> */
-    public function signedUrlProvider(): iterable
+    public function provideValidateSignedRouteCases(): iterable
     {
         yield 'absolutePath' => [
             'validUrl' => '/valid-signature',
