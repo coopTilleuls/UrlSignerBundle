@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\UrlSignerBundle\UrlSigner;
 
-use Spatie\UrlSigner\BaseUrlSigner;
+use Spatie\UrlSigner\AbstractUrlSigner as SpatieAbstractUrlSigner;
 
-abstract class AbstractUrlSigner extends BaseUrlSigner implements UrlSignerInterface
+abstract class AbstractUrlSigner extends SpatieAbstractUrlSigner implements UrlSignerInterface
 {
     private int $defaultExpiration;
 
@@ -26,7 +26,7 @@ abstract class AbstractUrlSigner extends BaseUrlSigner implements UrlSignerInter
         $this->defaultExpiration = $defaultExpiration;
     }
 
-    public function sign(string $url, int|\DateTime $expiration = null, string $signatureKey = null): string
+    public function sign(string $url, int|\DateTimeInterface $expiration = null, string $signatureKey = null): string
     {
         return parent::sign($url, $expiration ?? $this->defaultExpiration, $signatureKey);
     }

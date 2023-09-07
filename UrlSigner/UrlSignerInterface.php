@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\UrlSignerBundle\UrlSigner;
 
-use Spatie\UrlSigner\UrlSigner;
+use Spatie\UrlSigner\Contracts\UrlSigner;
 
 interface UrlSignerInterface extends UrlSigner
 {
-    public function sign(string $url, int|\DateTime $expiration, string $signatureKey = null): string;
+    public function sign(string $url, int|\DateTimeInterface $expiration, string $signatureKey = null): string;
 
     public static function getName(): string;
 }

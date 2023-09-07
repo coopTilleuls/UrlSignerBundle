@@ -38,9 +38,9 @@ final class AbstractUrlSignerTest extends TestCase
                 return "{$url}::{$expiration}::{$signatureKey}";
             }
 
-            protected function getExpirationTimestamp(int|\DateTime $expirationInSeconds): string
+            protected function getExpirationTimestamp(int|\DateTimeInterface $expirationInSeconds): string
             {
-                return $expirationInSeconds instanceof \DateTime ? 'datetime' : (string) $expirationInSeconds;
+                return $expirationInSeconds instanceof \DateTimeInterface ? 'datetime' : (string) $expirationInSeconds;
             }
         };
     }

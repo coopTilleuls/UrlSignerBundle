@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.1.0
+
+* Minor **BC break**: use the new classes from `spatie/url-signer` 2.1.0 (`DateTimeInterface` instead of `DateTime` in `sign`)
+
 ## 2.0.0
 
 * Upgrade to `spatie/url-signer` 2.x
