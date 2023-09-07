@@ -45,7 +45,7 @@ final class CoopTilleulsUrlSignerExtensionTest extends TestCase
         $this->extension = new CoopTilleulsUrlSignerExtension();
 
         $this->containerBuilderProphecy->hasExtension('http://symfony.com/schema/dic/services')->willReturn(false);
-        $this->containerBuilderProphecy->removeBindings(Argument::type('string'))->will(function () {});
+        $this->containerBuilderProphecy->removeBindings(Argument::type('string'))->will(static function () {});
     }
 
     public function testLoadDefaultConfiguration(): void
