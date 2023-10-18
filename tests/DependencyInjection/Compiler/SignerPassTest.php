@@ -53,7 +53,7 @@ final class SignerPassTest extends TestCase
         ]);
         $bindings = [
             'string $signatureKey' => '%url_signer.signature_key%',
-            'int $defaultExpiration' => '%url_signer.default_expiration%',
+            '$defaultExpiration' => '%url_signer.default_expiration%',
             'string $expiresParameter' => '%url_signer.expires_parameter%',
             'string $signatureParameter' => '%url_signer.signature_parameter%',
         ];
