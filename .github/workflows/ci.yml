@@ -16,12 +16,16 @@ jobs:
                 php:
                     - '8.1'
                     - '8.2'
+                    - '8.3'
                 symfony:
                     - '5.4.*'
-                    - '6.2.*'
-                    - '6.3.*'
+                    - '6.4.*'
+                    - '7.0.*'
                 coverage:
                     - none
+                exclude:
+                    - php: '8.1'
+                      symfony: '7.0.*'
                 include:
                     - php: '8.1'
                       symfony: '5.4.*'
@@ -30,7 +34,7 @@ jobs:
             fail-fast: false
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 0
 

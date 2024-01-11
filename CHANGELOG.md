@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.2.1
+
+* Allow Symfony 7
+
 ## 2.2.0
 
 * Allow to use a date/time string in default expiration time configuration
