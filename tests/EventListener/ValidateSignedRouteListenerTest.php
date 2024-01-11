@@ -117,7 +117,7 @@ final class ValidateSignedRouteListenerTest extends TestCase
     }
 
     /** @return iterable<string, array<string, string>> */
-    public function provideValidateSignedRouteCases(): iterable
+    public static function provideValidateSignedRouteCases(): iterable
     {
         yield 'absolutePath' => [
             'validUrl' => '/valid-signature',
