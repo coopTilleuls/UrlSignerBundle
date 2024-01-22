@@ -14,13 +14,10 @@ declare(strict_types=1);
 namespace Tests\UrlSigner;
 
 use CoopTilleuls\UrlSignerBundle\UrlSigner\Md5UrlSigner;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @covers \CoopTilleuls\UrlSignerBundle\UrlSigner\Md5UrlSigner
- */
+#[CoversClass(Md5UrlSigner::class)]
 final class Md5UrlSignerTest extends TestCase
 {
     private Md5UrlSigner $signer;

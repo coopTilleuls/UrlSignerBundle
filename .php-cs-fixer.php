@@ -17,13 +17,17 @@ return (new PhpCsFixer\Config())
         '@PhpCsFixer:risky' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
-        '@PHPUnit75Migration:risky' => true,
-        'method_chaining_indentation' => false,
-        'no_superfluous_phpdoc_tags' => ['allow_mixed' => true],
+        '@PHPUnit100Migration:risky' => true,
+        'declare_strict_types' => true,
+        'final_class' => true,
         'header_comment' => [
             'header' => $header,
             'location' => 'after_open',
         ],
+        'method_chaining_indentation' => false,
+        'no_superfluous_phpdoc_tags' => ['allow_mixed' => true],
+        'php_unit_internal_class' => false,
+        'php_unit_test_class_requires_covers' => false,
     ])
     ->setRiskyAllowed(true)
     ->setFinder(

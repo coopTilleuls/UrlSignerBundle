@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace CoopTilleuls\UrlSignerBundle\Tests\Controller;
 
 use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
@@ -17,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class SignController extends AbstractController
+final class SignController extends AbstractController
 {
     private UrlSignerInterface $urlSigner;
 

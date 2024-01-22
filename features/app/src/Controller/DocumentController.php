@@ -9,11 +9,13 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace CoopTilleuls\UrlSignerBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-class DocumentController
+final class DocumentController
 {
     public function __invoke(): Response
     {

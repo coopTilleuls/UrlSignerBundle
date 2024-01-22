@@ -15,6 +15,8 @@ namespace Tests\EventListener;
 
 use CoopTilleuls\UrlSignerBundle\EventListener\ValidateSignedRouteListener;
 use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -25,11 +27,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-/**
- * @internal
- *
- * @covers \CoopTilleuls\UrlSignerBundle\EventListener\ValidateSignedRouteListener
- */
+#[CoversClass(ValidateSignedRouteListener::class)]
 final class ValidateSignedRouteListenerTest extends TestCase
 {
     use ProphecyTrait;
@@ -51,7 +49,7 @@ final class ValidateSignedRouteListenerTest extends TestCase
         self::assertArrayHasKey(RequestEvent::class, ValidateSignedRouteListener::getSubscribedEvents());
     }
 
-    /** @dataProvider provideValidateSignedRouteCases */
+    #[DataProvider('provideValidateSignedRouteCases')]
     public function testValidateSignedRoute(string $validUrl): void
     {
         $request = Request::create('http://test.org/valid-signature');

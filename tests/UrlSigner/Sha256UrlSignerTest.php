@@ -14,13 +14,10 @@ declare(strict_types=1);
 namespace Tests\UrlSigner;
 
 use CoopTilleuls\UrlSignerBundle\UrlSigner\Sha256UrlSigner;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @covers \CoopTilleuls\UrlSignerBundle\UrlSigner\Sha256UrlSigner
- */
+#[CoversClass(Sha256UrlSigner::class)]
 final class Sha256UrlSignerTest extends TestCase
 {
     private Sha256UrlSigner $signer;

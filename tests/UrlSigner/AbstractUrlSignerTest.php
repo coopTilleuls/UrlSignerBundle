@@ -14,13 +14,10 @@ declare(strict_types=1);
 namespace Tests\UrlSigner;
 
 use CoopTilleuls\UrlSignerBundle\UrlSigner\AbstractUrlSigner;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @covers \CoopTilleuls\UrlSignerBundle\UrlSigner\AbstractUrlSigner
- */
+#[CoversClass(AbstractUrlSigner::class)]
 final class AbstractUrlSignerTest extends TestCase
 {
     private AbstractUrlSigner $signer;

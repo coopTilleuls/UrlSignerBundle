@@ -17,6 +17,7 @@ use CoopTilleuls\UrlSignerBundle\DependencyInjection\CoopTilleulsUrlSignerExtens
 use CoopTilleuls\UrlSignerBundle\UrlSigner\Md5UrlSigner;
 use CoopTilleuls\UrlSignerBundle\UrlSigner\Sha256UrlSigner;
 use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -26,11 +27,7 @@ use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
-/**
- * @internal
- *
- * @covers \CoopTilleuls\UrlSignerBundle\DependencyInjection\CoopTilleulsUrlSignerExtension
- */
+#[CoversClass(CoopTilleulsUrlSignerExtension::class)]
 final class CoopTilleulsUrlSignerExtensionTest extends TestCase
 {
     use ProphecyTrait;

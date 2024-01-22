@@ -53,7 +53,7 @@ final class UrlSignerContext implements Context
     public function iRequestTheSignedUrl(): void
     {
         $signedUrl = $this->client->getResponse()->getContent();
-        if (!$signedUrl) {
+        if (false === $signedUrl || '' === $signedUrl) {
             throw new \RuntimeException('No signed URL received.');
         }
         $this->client->request('GET', $signedUrl);
@@ -75,7 +75,7 @@ final class UrlSignerContext implements Context
     public function iShouldGetAValidSignedUrl(): void
     {
         $signedUrl = $this->client->getResponse()->getContent();
-        if (!$signedUrl) {
+        if (false === $signedUrl || '' === $signedUrl) {
             throw new \RuntimeException('No signed URL received.');
         }
         if (!$this->urlSigner->validate($signedUrl)) {
