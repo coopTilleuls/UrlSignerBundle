@@ -26,7 +26,7 @@ abstract class AbstractUrlSigner extends SpatieAbstractUrlSigner implements UrlS
         $this->defaultExpiration = \is_string($defaultExpiration) ? new \DateTimeImmutable($defaultExpiration) : $defaultExpiration;
     }
 
-    public function sign(string $url, \DateTimeInterface|int $expiration = null, string $signatureKey = null): string
+    public function sign(string $url, \DateTimeInterface|int|null $expiration = null, ?string $signatureKey = null): string
     {
         return parent::sign($url, $expiration ?? $this->defaultExpiration, $signatureKey);
     }
