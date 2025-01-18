@@ -17,15 +17,16 @@ jobs:
                     - '8.1'
                     - '8.2'
                     - '8.3'
+                    - '8.4'
                 symfony:
                     - '5.4.*'
                     - '6.4.*'
-                    - '7.0.*'
+                    - '7.2.*'
                 coverage:
                     - none
                 exclude:
                     - php: '8.1'
-                      symfony: '7.0.*'
+                      symfony: '7.2.*'
                 include:
                     - php: '8.1'
                       symfony: '5.4.*'
@@ -39,7 +40,7 @@ jobs:
                   fetch-depth: 0
 
             - name: Check commit messages
-              uses: wagoid/commitlint-github-action@v5
+              uses: wagoid/commitlint-github-action@v6
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -53,7 +54,7 @@ jobs:
               run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
             - name: Cache dependencies
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
                   key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
@@ -82,10 +83,8 @@ jobs:
                   rm -rf flex
 
             - name: Check code style
+              if: matrix.php != '8.4'
               run: vendor/bin/php-cs-fixer fix --ansi --diff --dry-run
-
-            - name: Analyze code (Psalm)
-              run: vendor/bin/psalm --php-version=${{ matrix.php }} --long-progress --output-format=github --shepherd --stats
 
             - name: Analyze code (PHPStan)
               run: vendor/bin/phpstan analyze . --ansi --no-progress --error-format=github

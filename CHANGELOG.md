@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.2.2
+
+* Fix PHP 8.4 deprecations (implicit nullable)
+
 ## 2.2.1
 
 * Allow Symfony 7

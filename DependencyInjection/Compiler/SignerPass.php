@@ -38,7 +38,7 @@ final class SignerPass implements CompilerPassInterface
             $availableNames[] = $name;
         }
 
-        throw new InvalidArgumentException(sprintf("No URL signer with the name \"%s\" found. Available names are:\n%s", $signerName, implode("\n", array_map(static function (string $availableName) { return sprintf('- "%s"', $availableName); }, $availableNames))));
+        throw new InvalidArgumentException(\sprintf("No URL signer with the name \"%s\" found. Available names are:\n%s", $signerName, implode("\n", array_map(static fn (string $availableName) => \sprintf('- "%s"', $availableName), $availableNames))));
     }
 
     /**
