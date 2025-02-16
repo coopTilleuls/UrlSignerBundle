@@ -35,14 +35,17 @@
         "behat/behat": "^3.0",
         "friends-of-behat/symfony-extension": "^2.0",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "infection/infection": "^0.29",
+        "infection/infection": "^0.27 || ^0.29",
         "jangregor/phpstan-prophecy": "^2.0",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^10.0 || ^11.0",
+        "psalm/plugin-phpunit": "^0.19",
+        "psalm/plugin-symfony": "^5.2",
         "symfony/browser-kit": "^4.4 || ^5.0 || ^6.0 || ^7.0",
-        "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0 || ^7.0"
+        "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0 || ^7.0",
+        "vimeo/psalm": "^5.26 || ^6.6"
     },
     "config": {
         "sort-packages": true,

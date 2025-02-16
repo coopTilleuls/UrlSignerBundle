@@ -30,7 +30,7 @@ final class ValidateSignedRouteListener implements EventSubscriberInterface
     public function validateSignedRoute(RequestEvent $event): void
     {
         $request = $event->getRequest();
-        /** @var array{_signed?: bool} $routeParams */
+        /** @var array{_signed?: bool, _locale?: string} $routeParams */
         $routeParams = $request->attributes->get('_route_params');
 
         if (!$routeParams || !($routeParams['_signed'] ?? false)) {

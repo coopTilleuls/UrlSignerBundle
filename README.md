@@ -4,6 +4,7 @@
 [![Actions Status](https://github.com/coopTilleuls/UrlSignerBundle/workflows/CI/badge.svg)](https://github.com/coopTilleuls/UrlSignerBundle/actions)
 [![Coverage Status](https://coveralls.io/repos/github/coopTilleuls/UrlSignerBundle/badge.svg?branch=main)](https://coveralls.io/github/coopTilleuls/UrlSignerBundle?branch=main)
 [![Infection MSI](https://img.shields.io/endpoint?url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FcoopTilleuls%2FUrlSignerBundle%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/coopTilleuls/UrlSignerBundle/main)
+[![Type Coverage](https://shepherd.dev/github/coopTilleuls/UrlSignerBundle/coverage.svg)](https://shepherd.dev/github/coopTilleuls/UrlSignerBundle)
 
 Create and validate signed URLs with a limited lifetime in Symfony.
 

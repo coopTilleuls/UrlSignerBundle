@@ -27,6 +27,8 @@ jobs:
                 exclude:
                     - php: '8.1'
                       symfony: '7.2.*'
+                    - php: '8.4'
+                      symfony: '5.4.*'
                 include:
                     - php: '8.1'
                       symfony: '5.4.*'
@@ -89,8 +91,10 @@ jobs:
             - name: Analyze code (PHPStan)
               run: vendor/bin/phpstan analyze . --ansi --no-progress --error-format=github
 
+            - name: Analyze code (Psalm)
+              run: vendor/bin/psalm --php-version=${{ matrix.php }} --long-progress --output-format=github --shepherd --stats
+
             - name: Run functional tests
-              if: ${{ !startsWith(matrix.symfony, '4') }}
               run: vendor/bin/behat --colors
 
             - name: Run unit tests
