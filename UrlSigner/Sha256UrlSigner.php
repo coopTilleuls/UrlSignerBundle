@@ -21,10 +21,10 @@ final class Sha256UrlSigner extends AbstractUrlSigner
         return 'sha256';
     }
 
-    #[\Override]
     /**
      * Generate a token to identify the secure action.
      */
+    #[\Override]
     protected function createSignature(string $url, string $expiration, string $signatureKey): string
     {
         return hash_hmac(self::getName(), "{$url}::{$expiration}", $signatureKey);

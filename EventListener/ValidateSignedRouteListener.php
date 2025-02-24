@@ -45,10 +45,10 @@ final class ValidateSignedRouteListener implements EventSubscriberInterface
         }
     }
 
-    #[\Override]
     /**
      * @return array<class-string, string>
      */
+    #[\Override]
     public static function getSubscribedEvents(): array
     {
         return [

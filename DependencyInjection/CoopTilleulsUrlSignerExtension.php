@@ -21,8 +21,8 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 final class CoopTilleulsUrlSignerExtension extends Extension
 {
-    #[\Override]
     /** @param mixed[] $configs */
+    #[\Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
