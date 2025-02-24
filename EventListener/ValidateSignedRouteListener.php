@@ -45,6 +45,7 @@ final class ValidateSignedRouteListener implements EventSubscriberInterface
         }
     }
 
+    #[\Override]
     /**
      * @return array<class-string, string>
      */

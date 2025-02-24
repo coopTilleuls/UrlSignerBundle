@@ -19,6 +19,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class CoopTilleulsUrlSignerBundle extends Bundle
 {
+    #[\Override]
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

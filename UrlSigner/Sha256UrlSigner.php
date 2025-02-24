@@ -15,11 +15,13 @@ namespace CoopTilleuls\UrlSignerBundle\UrlSigner;
 
 final class Sha256UrlSigner extends AbstractUrlSigner
 {
+    #[\Override]
     public static function getName(): string
     {
         return 'sha256';
     }
 
+    #[\Override]
     /**
      * Generate a token to identify the secure action.
      */

@@ -36,6 +36,7 @@ final class CoopTilleulsUrlSignerExtensionTest extends TestCase
     private ObjectProphecy $containerBuilderProphecy;
     private CoopTilleulsUrlSignerExtension $extension;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->containerBuilderProphecy = $this->prophesize(ContainerBuilder::class);

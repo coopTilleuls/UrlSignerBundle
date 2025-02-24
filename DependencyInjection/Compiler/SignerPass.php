@@ -20,6 +20,7 @@ use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
 final class SignerPass implements CompilerPassInterface
 {
+    #[\Override]
     public function process(ContainerBuilder $container): void
     {
         $signers = $this->getSigners($container);

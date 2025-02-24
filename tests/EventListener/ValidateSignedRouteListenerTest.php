@@ -36,6 +36,7 @@ final class ValidateSignedRouteListenerTest extends TestCase
     private ObjectProphecy $signerProphecy;
     private EventDispatcher $dispatcher;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->signerProphecy = $this->prophesize(UrlSignerInterface::class);

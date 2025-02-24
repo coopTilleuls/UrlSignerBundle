@@ -23,6 +23,7 @@ final class AbstractUrlSignerTest extends TestCase
     private AbstractUrlSigner $signer;
     private AbstractUrlSigner $signerDateTime;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->signer = new Signer('secret', 5, 'exp', 'sign');
@@ -60,16 +61,19 @@ final class AbstractUrlSignerTest extends TestCase
 
 final class Signer extends AbstractUrlSigner
 {
+    #[\Override]
     public static function getName(): string
     {
         return 'abstract';
     }
 
+    #[\Override]
     protected function createSignature(string $url, string $expiration, string $signatureKey): string
     {
         return "{$url}::{$expiration}::{$signatureKey}";
     }
 
+    #[\Override]
     protected function getExpirationTimestamp(\DateTimeInterface|int $expirationInSeconds): string
     {
         return (string) ($expirationInSeconds instanceof \DateTimeInterface ? $expirationInSeconds->getTimestamp() : $expirationInSeconds);

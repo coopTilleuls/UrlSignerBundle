@@ -22,6 +22,7 @@ final class Md5UrlSignerTest extends TestCase
 {
     private Md5UrlSigner $signer;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->signer = new Md5UrlSigner('secret', 5, 'exp', 'sign');

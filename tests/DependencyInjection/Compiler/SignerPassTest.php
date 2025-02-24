@@ -36,6 +36,7 @@ final class SignerPassTest extends TestCase
     private ObjectProphecy $containerBuilderProphecy;
     private SignerPass $signerPass;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->containerBuilderProphecy = $this->prophesize(ContainerBuilder::class);

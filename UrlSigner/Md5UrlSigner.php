@@ -15,11 +15,13 @@ namespace CoopTilleuls\UrlSignerBundle\UrlSigner;
 
 final class Md5UrlSigner extends AbstractUrlSigner
 {
+    #[\Override]
     public static function getName(): string
     {
         return 'md5';
     }
 
+    #[\Override]
     /**
      * Generate a token to identify the secure action.
      */

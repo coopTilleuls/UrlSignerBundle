@@ -22,6 +22,7 @@ final class Sha256UrlSignerTest extends TestCase
 {
     private Sha256UrlSigner $signer;
 
+    #[\Override]
     protected function setUp(): void
     {
         $this->signer = new Sha256UrlSigner('secret', 5, 'exp', 'sign');
