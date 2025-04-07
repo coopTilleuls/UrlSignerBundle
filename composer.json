@@ -41,7 +41,7 @@
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^10.0 || ^11.0",
-        "psalm/plugin-phpunit": "^0.19",
+        "psalm/plugin-phpunit": "<=0.19.3",
         "psalm/plugin-symfony": "^5.2",
         "symfony/browser-kit": "^4.4 || ^5.0 || ^6.0 || ^7.0",
         "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0 || ^7.0",
