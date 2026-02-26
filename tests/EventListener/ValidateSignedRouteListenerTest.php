@@ -66,6 +66,18 @@ final class ValidateSignedRouteListenerTest extends TestCase
         $this->signerProphecy->validate(Argument::any())->shouldHaveBeenCalledTimes($isPath ? 1 : 2);
     }
 
+    /** @return iterable<string, array<string, string>> */
+    public static function provideValidateSignedRouteCases(): iterable
+    {
+        yield 'absolutePath' => [
+            'validUrl' => '/valid-signature',
+        ];
+
+        yield 'absoluteUrl' => [
+            'validUrl' => 'http://test.org/valid-signature',
+        ];
+    }
+
     public function testValidateSignedRouteMissingRouteParamsAttribute(): void
     {
         $request = Request::create('http://test.org/valid-signature');
@@ -113,17 +125,5 @@ final class ValidateSignedRouteListenerTest extends TestCase
         $this->dispatcher->dispatch($event);
 
         $this->signerProphecy->validate(Argument::any())->shouldHaveBeenCalledOnce();
-    }
-
-    /** @return iterable<string, array<string, string>> */
-    public static function provideValidateSignedRouteCases(): iterable
-    {
-        yield 'absolutePath' => [
-            'validUrl' => '/valid-signature',
-        ];
-
-        yield 'absoluteUrl' => [
-            'validUrl' => 'http://test.org/valid-signature',
-        ];
     }
 }

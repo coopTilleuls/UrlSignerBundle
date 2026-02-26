@@ -21,12 +21,15 @@ jobs:
                 symfony:
                     - '5.4.*'
                     - '6.4.*'
-                    - '7.2.*'
+                    - '7.4.*'
+                    - '8.0.*'
                 coverage:
                     - none
                 exclude:
                     - php: '8.1'
-                      symfony: '7.2.*'
+                      symfony: '7.4.*'
+                    - php: '8.1'
+                      symfony: '8.0.*'
                     - php: '8.4'
                       symfony: '5.4.*'
                 include:

@@ -25,11 +25,11 @@
     "require": {
         "php": ">=8.1",
         "spatie/url-signer": "^2.0",
-        "symfony/config": "^4.4 || ^5.1 || ^6.0 || ^7.0",
-        "symfony/dependency-injection": "^4.4 || ^5.1 || ^6.0 || ^7.0",
-        "symfony/event-dispatcher": "^4.4 || ^5.1 || ^6.0 || ^7.0",
-        "symfony/http-kernel": "^4.4 || ^5.1 || ^6.0 || ^7.0",
-        "symfony/routing": "^4.4 || ^5.1 || ^6.0 || ^7.0"
+        "symfony/config": "^4.4 || ^5.1 || ^6.0 || ^7.0 || ^8.0",
+        "symfony/dependency-injection": "^4.4 || ^5.1 || ^6.0 || ^7.0 || ^8.0",
+        "symfony/event-dispatcher": "^4.4 || ^5.1 || ^6.0 || ^7.0 || ^8.0",
+        "symfony/http-kernel": "^4.4 || ^5.1 || ^6.0 || ^7.0 || ^8.0",
+        "symfony/routing": "^4.4 || ^5.1 || ^6.0 || ^7.0 || ^8.0"
     },
     "require-dev": {
         "behat/behat": "^3.0",
@@ -43,8 +43,8 @@
         "phpunit/phpunit": "^10.0 || ^11.0",
         "psalm/plugin-phpunit": "<=0.19.3",
         "psalm/plugin-symfony": "^5.2",
-        "symfony/browser-kit": "^4.4 || ^5.0 || ^6.0 || ^7.0",
-        "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0 || ^7.0",
+        "symfony/browser-kit": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
+        "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
         "vimeo/psalm": "^5.26 || ^6.6"
     },
     "config": {

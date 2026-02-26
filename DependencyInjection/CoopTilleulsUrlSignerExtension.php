@@ -17,7 +17,7 @@ use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class CoopTilleulsUrlSignerExtension extends Extension
 {
@@ -37,7 +37,7 @@ final class CoopTilleulsUrlSignerExtension extends Extension
         $container->setParameter('url_signer.expires_parameter', $config['expires_parameter']);
         $container->setParameter('url_signer.signature_parameter', $config['signature_parameter']);
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('services.php');
     }
 }
